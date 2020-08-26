@@ -53,6 +53,46 @@ data class BooleanValue(val v: Boolean): Value {
         }
     }
 
+    override fun lessThan(with: Value): Value {
+        return when (with) {
+            is BooleanValue -> BooleanValue(!v && with.v)
+            is IntegerValue -> BooleanValue(v.toInt() < with.v)
+            is FloatValue -> BooleanValue(v.toInt() < with.v)
+            is StringValue -> TODO("make an error for this")
+            else -> TODO("make an error for this")
+        }
+    }
+
+    override fun greaterThan(with: Value): Value {
+        return when (with) {
+            is BooleanValue -> BooleanValue(v && !with.v)
+            is IntegerValue -> BooleanValue(v.toInt() > with.v)
+            is FloatValue -> BooleanValue(v.toInt() > with.v)
+            is StringValue -> TODO("make an error for this")
+            else -> TODO("make an error for this")
+        }
+    }
+
+    override fun lessThanOrEqual(with: Value): Value {
+        return when (with) {
+            is BooleanValue -> BooleanValue(!v || with.v)
+            is IntegerValue -> BooleanValue(v.toInt() <= with.v)
+            is FloatValue -> BooleanValue(v.toInt() <= with.v)
+            is StringValue -> TODO("make an error for this")
+            else -> TODO("make an error for this")
+        }
+    }
+
+    override fun greaterThanOrEqual(with: Value): Value {
+        return when (with) {
+            is BooleanValue -> BooleanValue(v || !with.v)
+            is IntegerValue -> BooleanValue(v.toInt() >= with.v)
+            is FloatValue -> BooleanValue(v.toInt() >= with.v)
+            is StringValue -> TODO("make an error for this")
+            else -> TODO("make an error for this")
+        }
+    }
+
     override fun negate(): Value {
         return if (v) IntegerValue(-1) else IntegerValue(0)
     }

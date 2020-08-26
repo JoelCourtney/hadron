@@ -44,6 +44,15 @@ IF : I F;
 ELSE : E L S E;
 ELSEIF : E L S E I F;
 
+AND : A N D;
+OR : O R;
+NOT : N O T;
+
+UNIT : U N I T;
+DIM : D I M;
+PREFIX : P R E F I X;
+
+
 PLUS : '+';
 MINUS : '-';
 STAR : '*';
@@ -54,9 +63,19 @@ OPAREN : '(';
 CPAREN : ')';
 OBRACE : '{';
 CBRACE : '}';
+OBRAKET : '[';
+CBRAKET : ']';
 COMMA : ',';
 COLON : ':';
 SEMICOLON : ';';
+OHAIRPIN : '<';
+CHAIRPIN : '>';
+OHAIRPINEQUAL : '<=';
+CHAIRPINEQUAL : '>=';
+BANG : '!';
+PERCENT : '%';
+HASH : '#';
+DOLLAR : '$';
 
 
 WS : [ \t\u000C]+ -> skip;

@@ -1,0 +1,19 @@
+unit dim Distance
+unit dim Time
+unit dim Mass
+
+unit dim Speed = Distance / Time
+unit dim Acceleration = Speed / Time
+unit dim Force = Acceleration * Mass
+unit dim Energy = Force * Distance
+unit dim Torque = Force * Distance
+
+unit prefix SI = [
+    c: 0.1
+    (): 1
+    k:  1000
+]
+
+unit m prefix SI = 1[[Distance]]
+unit J prefix SI = 1[[Energy]]
+unit eV prefix SI = 1.602176634e-19[J]

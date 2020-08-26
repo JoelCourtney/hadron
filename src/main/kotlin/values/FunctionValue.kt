@@ -24,6 +24,22 @@ data class FunctionValue(val args: List<String>, val exp: Expression, val deferT
         TODO("make an error for this")
     }
 
+    override fun lessThan(with: Value): Value {
+        TODO("make an error for this")
+    }
+
+    override fun greaterThan(with: Value): Value {
+        TODO("make an error for this")
+    }
+
+    override fun lessThanOrEqual(with: Value): Value {
+        TODO("make an error for this")
+    }
+
+    override fun greaterThanOrEqual(with: Value): Value {
+        TODO("make an error for this")
+    }
+
     override fun negate(): Value {
         TODO("make an error for this")
     }

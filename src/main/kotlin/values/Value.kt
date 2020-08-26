@@ -9,6 +9,10 @@ interface Value: Expression {
      fun multiply(with: Value): Value
      fun divide(with: Value): Value
      fun exponentiate(with: Value): Value
+     fun lessThan(with: Value): Value
+     fun greaterThan(with: Value): Value
+     fun lessThanOrEqual(with: Value): Value
+     fun greaterThanOrEqual(with: Value): Value
 
      fun negate(): Value
 

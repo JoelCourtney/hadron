@@ -5,7 +5,11 @@ enum class BinaryOperation {
     SUBTRACT,
     MULTIPLY,
     DIVIDE,
-    EXPONENTIATE;
+    EXPONENTIATE,
+    LESS_THAN,
+    GREATER_THAN,
+    LESS_THAN_OR_EQUAL,
+    GREATER_THAN_OR_EQUAL;
 
     companion object {
         fun fromString(s: String): BinaryOperation {
@@ -15,6 +19,10 @@ enum class BinaryOperation {
                 "*" -> MULTIPLY
                 "/" -> DIVIDE
                 "^" -> EXPONENTIATE
+                "<" -> LESS_THAN
+                ">" -> GREATER_THAN
+                "<=" -> LESS_THAN_OR_EQUAL
+                ">=" -> GREATER_THAN_OR_EQUAL
                 else -> TODO("make an error for this")
             }
         }

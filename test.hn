@@ -1,7 +1,1 @@
-fn square(x) {
-    var a = x
-    a = x*x
-    a
-}
-
-println(square(2))
+println(0 > true)
