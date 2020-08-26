@@ -1,5 +1,7 @@
-fn hello(asdf) println(asdf^2)
+fn square(x) {
+    var a = x
+    a = x*x
+    a
+}
 
-val a = 5
-
-hello(a)
+println(square(2))

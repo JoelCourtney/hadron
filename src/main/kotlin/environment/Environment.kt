@@ -23,7 +23,7 @@ data class Environment(val stack: MutableList<StackFrame> = mutableListOf()) {
         stack.add(frame)
     }
 
-    fun pop(): Value? {
+    fun pop(): Value {
         val result = stack.last().latestValue
         stack.removeAt(stack.size - 1)
         return result

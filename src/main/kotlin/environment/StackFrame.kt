@@ -1,11 +1,15 @@
 package environment
 
 import values.Value
+import values.VoidValue
 
 data class StackFrame(val deferTo: StackFrame?, val varls: MutableMap<String, Varl> = mutableMapOf()) {
-    var latestValue: Value? = null
+    var latestValue: Value = VoidValue
+        set(value) {
+            if (value != VoidValue) field = value
+        }
 
-    fun getVarl(name: String): Value {
+        fun getVarl(name: String): Value {
         val varl = varls[name]
         if (varl != null) {
             return varl.v

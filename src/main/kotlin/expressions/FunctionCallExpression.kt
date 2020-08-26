@@ -23,8 +23,9 @@ data class FunctionCallExpression(val functionName: String, val argExps: List<Ex
             for ((name, value) in args) {
                 env.declareVarl(name, value, false)
             }
-            func.exp.eval(env)
-            return env.pop() ?: VoidValue
+            val result = func.exp.eval(env)
+            env.pop()
+            return result
         } else {
             TODO("make an error for this")
         }

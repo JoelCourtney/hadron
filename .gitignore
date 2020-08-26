@@ -31,8 +31,8 @@ build/
 gradle/
 
 # ANTLR
-src/nativeMain/gen/
-src/nativeMain/antlr/gen/
+src/main/gen/
+src/main/antlr/gen/
 *.interp
 *.tokens
 

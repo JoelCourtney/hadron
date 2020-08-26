@@ -18,10 +18,10 @@ options { tokenVocab = HadronLexer; }
 
 file returns [HadronFile result]
     : { ArrayList<Statement> statements = new ArrayList<Statement>(); } (
-        s=statement SEP { statements.add($s.result); }
+        s=statement sep { statements.add($s.result); }
     )* (
         s=statement { statements.add($s.result); }
-    )? SEP? EOF { $result = new HadronFile(statements); };
+    )? EOF { $result = new HadronFile(statements); };
 
 statement returns [Statement result]
     : expression { $result = new ValueStatement($expression.result); }
@@ -34,7 +34,7 @@ statement returns [Statement result]
         )*
         i=IDENTIFIER { args.add($i.getText()); }
     )? CPAREN expression { $result = new DeclareFunctionStatement($n.getText(), args, $expression.result); }
-    | IF c=expression SEP e=expression { $result = new IfStatement($c.result, $e.result); };
+    | IF c=expression sep e=expression { $result = new IfStatement($c.result, $e.result); };
 
 expression returns [Expression result]
     : l=expression bop=CARROT r=expression { $result = new BinaryExpression($bop.getText(), $l.result, $r.result); }
@@ -51,4 +51,13 @@ expression returns [Expression result]
             e=expression COMMA { args.add($e.result); }
         )*
         e=expression { args.add($e.result); }
-    )? CPAREN { $result = new FunctionCallExpression($i.getText(), args); };
+    )? CPAREN { $result = new FunctionCallExpression($i.getText(), args); }
+    | OPAREN expression CPAREN { $result = $expression.result; }
+    | OPAREN CPAREN { $result = VoidValue.INSTANCE; }
+    | OBRACE NL* { ArrayList<Statement> statements = new ArrayList<Statement>(); } (
+        s=statement sep { statements.add($s.result); }
+    )* (
+        NL* s=statement { statements.add($s.result); }
+    )? CBRACE { $result = new BlockExpression(statements); };
+
+sep : SEMICOLON NL* | NL+;

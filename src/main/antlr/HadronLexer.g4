@@ -55,8 +55,9 @@ CPAREN : ')';
 OBRACE : '{';
 CBRACE : '}';
 COMMA : ',';
+COLON : ':';
+SEMICOLON : ';';
 
-SEP : ';' NL* | NL+;
 
 WS : [ \t\u000C]+ -> skip;
 COMMENT : '/*' .*? '*/' -> skip;
