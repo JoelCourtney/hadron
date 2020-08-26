@@ -1,4 +1,4 @@
-lexer grammar Lexer;
+lexer grammar HadronLexer;
 
 fragment LETTER : [A-Z] | [a-z] | '_' | '$';
 fragment NON_ZERO_DIGIT : [1-9];
@@ -54,6 +54,7 @@ OPAREN : '(';
 CPAREN : ')';
 OBRACE : '{';
 CBRACE : '}';
+COMMA : ',';
 
 SEP : ';' NL* | NL+;
 

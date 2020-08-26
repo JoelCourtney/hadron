@@ -1,5 +1,8 @@
 package values
 
+import environment.Environment
+import expressions.Expression
+
 interface Value: Expression {
      fun add(with: Value): Value
      fun subtract(with: Value): Value
@@ -7,7 +10,9 @@ interface Value: Expression {
      fun divide(with: Value): Value
      fun exponentiate(with: Value): Value
 
-     override fun eval(): Value {
+     fun negate(): Value
+
+     override fun eval(env: Environment): Value {
          return this
      }
 }

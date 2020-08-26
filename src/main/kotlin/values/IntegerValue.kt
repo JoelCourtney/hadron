@@ -54,4 +54,12 @@ data class IntegerValue(val v: Long): Value {
             else -> TODO("make an error for this")
         }
     }
+
+    override fun negate(): Value {
+        return IntegerValue(-v)
+    }
+
+    override fun toString(): String {
+        return v.toString()
+    }
 }

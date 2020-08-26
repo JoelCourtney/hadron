@@ -1,0 +1,5 @@
+fn hello(asdf) println(asdf^2)
+
+val a = 5
+
+hello(a)

@@ -52,5 +52,13 @@ data class BooleanValue(val v: Boolean): Value {
             else -> TODO("make an error for this")
         }
     }
+
+    override fun negate(): Value {
+        return if (v) IntegerValue(-1) else IntegerValue(0)
+    }
+
+    override fun toString(): String {
+        return if (v) "true" else "false"
+    }
 }
 

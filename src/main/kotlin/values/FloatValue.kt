@@ -54,4 +54,12 @@ data class FloatValue(val v: Double): Value {
             else -> TODO("make an error for this")
         }
     }
+
+    override fun negate(): Value {
+        return FloatValue(-v)
+    }
+
+    override fun toString(): String {
+        return v.toString()
+    }
 }
