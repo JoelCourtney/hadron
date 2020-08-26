@@ -5,7 +5,7 @@ import kotlin.math.pow
 fun Long.pow(with: Long): Long {
     if (with < 0) return 0
     var result: Long = 1
-    for (i in 0..with) {
+    for (i in 1..with) {
         result *= this
     }
     return result
