@@ -55,7 +55,27 @@ data class FloatValue(val v: Double): NumericValue {
         }
     }
 
-    override fun lessThan(with: Value): Value {
+    override fun equal(with: Value): BooleanValue {
+        return when (with) {
+            is BooleanValue -> BooleanValue(v.compareTo(with.v.toInt()) == 0)
+            is IntegerValue -> BooleanValue(v.compareTo(with.v) == 0)
+            is FloatValue -> BooleanValue(v == with.v)
+            is StringValue -> BooleanValue(false)
+            else -> TODO("make an error for this")
+        }
+    }
+
+    override fun notEqual(with: Value): BooleanValue {
+        return when (with) {
+            is BooleanValue -> BooleanValue(v.compareTo(with.v.toInt()) != 0)
+            is IntegerValue -> BooleanValue(v.compareTo(with.v) != 0)
+            is FloatValue -> BooleanValue(v != with.v)
+            is StringValue -> BooleanValue(true)
+            else -> TODO("make an error for this")
+        }
+    }
+
+    override fun lessThan(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(v < with.v.toInt())
             is IntegerValue -> BooleanValue(v < with.v)
@@ -65,7 +85,7 @@ data class FloatValue(val v: Double): NumericValue {
         }
     }
 
-    override fun greaterThan(with: Value): Value {
+    override fun greaterThan(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(v > with.v.toInt())
             is IntegerValue -> BooleanValue(v > with.v)
@@ -75,7 +95,7 @@ data class FloatValue(val v: Double): NumericValue {
         }
     }
 
-    override fun lessThanOrEqual(with: Value): Value {
+    override fun lessThanOrEqual(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(v <= with.v.toInt())
             is IntegerValue -> BooleanValue(v <= with.v)
@@ -85,7 +105,7 @@ data class FloatValue(val v: Double): NumericValue {
         }
     }
 
-    override fun greaterThanOrEqual(with: Value): Value {
+    override fun greaterThanOrEqual(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(v >= with.v.toInt())
             is IntegerValue -> BooleanValue(v >=with.v)

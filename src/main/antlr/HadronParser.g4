@@ -6,6 +6,8 @@ options { tokenVocab = HadronLexer; }
     import expressions.*;
     import values.*;
     import statements.*;
+    import java.util.Map;
+    import java.util.HashMap;
 }
 
 @parser::members {
@@ -24,28 +26,33 @@ file returns [HadronFile result]
     )? EOF { $result = new HadronFile(statements); };
 
 statement returns [Statement result]
-    : expression { $result = new ValueStatement($expression.result); }
-    | VAL i=IDENTIFIER EQUAL expression { $result = new DeclareVarlStatement($i.getText(), $expression.result, false); }
-    | VAR i=IDENTIFIER EQUAL expression { $result = new DeclareVarlStatement($i.getText(), $expression.result, true); }
-    | i=IDENTIFIER EQUAL expression { $result = new AssignVarlStatement($i.getText(), $expression.result); }
-    | FN n=IDENTIFIER OPAREN { List<String> args = new ArrayList<String>(); } (
+    : e=expression { $result = new ValueStatement($e.result); }
+    | VAL i=IDENTIFIER EQUAL e=expression { $result = new DeclareVarlStatement($i.getText(), $e.result, false); }
+    | VAR i=IDENTIFIER EQUAL e=expression { $result = new DeclareVarlStatement($i.getText(), $e.result, true); }
+    | i=IDENTIFIER EQUAL e=expression { $result = new AssignVarlStatement($i.getText(), $e.result); }
+    | FN id=IDENTIFIER OPAREN { List<String> args = new ArrayList<String>(); } (
         (
             i=IDENTIFIER COMMA { args.add($i.getText()); }
         )*
         i=IDENTIFIER { args.add($i.getText()); }
-    )? CPAREN expression { $result = new DeclareFunctionStatement($n.getText(), args, $expression.result); }
-    | IF c=expression sep e=expression { $result = new IfStatement($c.result, $e.result); }
-    | UNIT DIM i=IDENTIFIER
-    | UNIT DIM i=IDENTIFIER EQUAL e=unit_expression
-    | UNIT PREFIX i=IDENTIFIER EQUAL OBRAKET NL* (unit_prefix SEP)* unit_prefix SEP? CBRAKET
-    | UNIT i=IDENTIFIER (PREFIX p=IDENTIFIER)? EQUAL
-        numeric_value STAR OBRAKET (unit_expression | OBRAKET unit_expression CBRAKET) CBRAKET;
+    )? CPAREN expression { $result = new DeclareFunctionStatement($id.getText(), args, $expression.result); }
+    | IF cond=expression sep e=expression { $result = new IfStatement($cond.result, $e.result); }
+    | UNIT DIM i=IDENTIFIER { $result = new DeclareBaseDimensionStatement($i.getText()); }
+    | UNIT DIM i=IDENTIFIER EQUAL u=unit_expression { $result = new DeclareDerivedDimensionStatement($i.getText(), $u.result); }
+    | UNIT i=IDENTIFIER { String prefix = null; } (PREFIX p=IDENTIFIER { prefix = $p.getText(); })? EQUAL
+        n=numeric_value OBRAKET u=unit_expression CBRAKET { $result = new DeclareDerivedUnitStatement($i.getText(), $u.result, $n.result, prefix); }
+    | UNIT i=IDENTIFIER { String prefix = null; } (PREFIX p=IDENTIFIER)? { prefix = $p.getText(); } EQUAL
+        OBRAKET OBRAKET u=unit_expression CBRAKET CBRAKET { $result = new DeclareBaseUnitStatement($i.getText(), $u.result, prefix); }
+    | UNIT PREFIX id=IDENTIFIER EQUAL OBRAKET NL* { Map<String, NumericValue> prefixes = new HashMap<String, NumericValue>(); } (
+        i=IDENTIFIER COLON n=numeric_value sep { prefixes.put($i.getText(), $n.result); }
+    )* i=IDENTIFIER COLON n=numeric_value sep? { prefixes.put($i.getText(), $n.result); } CBRAKET { $result = new DeclareUnitPrefixStatement($id.getText(), prefixes); };
 
 expression returns [Expression result]
     : l=expression bop=CARROT r=expression { $result = new BinaryExpression($bop.getText(), $l.result, $r.result); }
     | l=expression bop=(STAR | SLASH) r=expression { $result = new BinaryExpression($bop.getText(), $l.result, $r.result); }
     | l=expression bop=(PLUS | MINUS) r=expression { $result = new BinaryExpression($bop.getText(), $l.result, $r.result); }
     | l=expression bop=(OHAIRPIN | CHAIRPIN | OHAIRPINEQUAL | CHAIRPINEQUAL) r=expression { $result = new BinaryExpression($bop.getText(), $l.result, $r.result); }
+    | l=expression bop=(EQUAL | BANG_EQUAL) r=expression { $result = new BinaryExpression($bop.getText(), $l.result, $r.result); }
     | uop=MINUS expression { $result = new UnaryExpression($uop.getText(), $expression.result); }
     | v=BOOLEAN_LITERAL { $result = new BooleanValue($v.getText()); }
     | v=STRING_LITERAL { $result = new StringValue($v.getText()); }
@@ -70,6 +77,8 @@ numeric_value returns [NumericValue result]
     | v=(FLOAT_LITERAL | SCIENTIFIC_FLOAT_LITERAL) { $result = new FloatValue($v.getText()); };
 
 unit_expression returns [UnitExpression result]
-    :
+    : l=unit_expression bop=CARROT e=numeric_value { $result = new BinaryExpression($bop.getText(), (Expression) $l.result, (Expression) $e.result); }
+    | l=unit_expression bop=(STAR | SLASH) r=unit_expression { $result = new BinaryExpression($bop.getText(), (Expression) $l.result, (Expression) $r.result); }
+    | i=IDENTIFIER { $result = new IdentifierExpression($i.getText()); };
 
 sep : SEMICOLON NL* | NL+;

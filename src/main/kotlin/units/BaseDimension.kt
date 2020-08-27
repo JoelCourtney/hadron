@@ -1,11 +1,9 @@
 package units
 
-data class BaseDimension(val name: String): Dimension {
-    override fun decompose(): DerivedDimension {
-        return DerivedDimension(listOf(this), listOf())
-    }
+import values.IntegerValue
+import values.NumericValue
 
-    override fun isEquivalentTo(with: Dimension): Boolean {
-        return with is BaseDimension && with.name == name
-    }
+data class BaseDimension(val name: String): Dimension {
+    override val components: Map<BaseDimension, NumericValue>
+        get() = mapOf(this to IntegerValue(1))
 }

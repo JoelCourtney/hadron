@@ -55,7 +55,27 @@ data class IntegerValue(val v: Long): NumericValue {
         }
     }
 
-    override fun lessThan(with: Value): Value {
+    override fun equal(with: Value): BooleanValue {
+        return when (with) {
+            is BooleanValue -> BooleanValue(v == with.v.toLong())
+            is IntegerValue -> BooleanValue(v == with.v)
+            is FloatValue -> BooleanValue(v.compareTo(with.v) == 0)
+            is StringValue -> BooleanValue(false)
+            else -> TODO("make an error for this")
+        }
+    }
+
+    override fun notEqual(with: Value): BooleanValue {
+        return when (with) {
+            is BooleanValue -> BooleanValue(v != with.v.toLong())
+            is IntegerValue -> BooleanValue(v != with.v)
+            is FloatValue -> BooleanValue(v.compareTo(with.v) != 0)
+            is StringValue -> BooleanValue(true)
+            else -> TODO("make an error for this")
+        }
+    }
+
+    override fun lessThan(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(v < with.v.toInt())
             is IntegerValue -> BooleanValue(v < with.v)
@@ -65,7 +85,7 @@ data class IntegerValue(val v: Long): NumericValue {
         }
     }
 
-    override fun greaterThan(with: Value): Value {
+    override fun greaterThan(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(v > with.v.toInt())
             is IntegerValue -> BooleanValue(v > with.v)
@@ -75,7 +95,7 @@ data class IntegerValue(val v: Long): NumericValue {
         }
     }
 
-    override fun lessThanOrEqual(with: Value): Value {
+    override fun lessThanOrEqual(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(v <= with.v.toInt())
             is IntegerValue -> BooleanValue(v <= with.v)
@@ -85,7 +105,7 @@ data class IntegerValue(val v: Long): NumericValue {
         }
     }
 
-    override fun greaterThanOrEqual(with: Value): Value {
+    override fun greaterThanOrEqual(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(v >= with.v.toInt())
             is IntegerValue -> BooleanValue(v >= with.v)

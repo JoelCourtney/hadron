@@ -1,13 +1,13 @@
 package units
 
-import java.awt.Dimension
+import values.IntegerValue
+import values.NumericValue
 
 data class BaseUnit(val name: String, override val dimension: BaseDimension): Unit {
-    override fun decompose(): UnitFraction {
-        return Pair(listOf(this), listOf())
-    }
+    override val components: Map<Unit, NumericValue>
+        get() = mapOf(this to IntegerValue(1))
 
-    override fun reduce(): Pair<Unit, Double> {
-        return Pair(this, 1.0)
+    override fun toString(): String {
+        return name
     }
 }

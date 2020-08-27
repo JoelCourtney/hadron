@@ -1,1 +1,16 @@
-println(0 > true)
+unit dim Distance
+unit dim Time
+unit dim Mass
+
+unit dim Speed = Distance / Time
+unit dim Acceleration = Speed / Time
+unit dim Force = Acceleration * Mass
+unit dim Energy = Force * Distance
+unit dim Torque = Force * Distance
+
+unit prefix SI = [
+    c: 0.1
+    k: 1000
+]
+
+unit m prefix SI = [[Distance]]
