@@ -45,10 +45,11 @@ data class IntegerValue(val v: Long): NumericValue {
         }
     }
 
+    // TODO("make exponentiate return RATIONALS when we implement them")
     override fun exponentiate(with: Value): Value {
         return when(with) {
             is BooleanValue -> IntegerValue(if (with.v) v else 1)
-            is IntegerValue -> IntegerValue(v.pow(with.v))
+            is IntegerValue -> if (with.v >= 0) IntegerValue(v.pow(with.v)) else FloatValue(v.toDouble().pow(with.v.toInt()))
             is FloatValue -> FloatValue(v.pow(with.v))
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")

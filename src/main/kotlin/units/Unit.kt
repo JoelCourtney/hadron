@@ -43,6 +43,19 @@ interface Unit {
     fun isEquivalentTo(with: Unit): Boolean {
         return dimension.isEquivalentTo(with.dimension)
     }
+
+    fun convert(to: Unit): NumericValue {
+        if (dimension.isEquivalentTo(to.dimension)) {
+            val cancel = this divide to
+            val (_, factor) = cancel.fullReduce()
+            return factor
+        } else {
+            TODO("make an error for this")
+        }
+    }
+
+    // Fully decomposes to base units, and returns the factor of the conversion
+    fun fullReduce(): Pair<Map<BaseUnit, NumericValue>, NumericValue>
 }
 
 fun<T> MutableMap<T, NumericValue>.absorb(with: Map<T, NumericValue>, n: NumericValue) {

@@ -38,7 +38,7 @@ statement returns [Statement result]
     )? CPAREN expression { $result = new DeclareFunctionStatement($id.getText(), args, $expression.result); }
     | IF cond=expression sep e=expression { $result = new IfStatement($cond.result, $e.result); }
     | UNIT DIM i=IDENTIFIER { $result = new DeclareBaseDimensionStatement($i.getText()); }
-    | UNIT DIM i=IDENTIFIER EQUAL u=unit_expression { $result = new DeclareDerivedDimensionStatement($i.getText(), $u.result); }
+    | UNIT DIM i=IDENTIFIER EQUAL OBRAKET OBRAKET u=unit_expression CBRAKET CBRAKET { $result = new DeclareDerivedDimensionStatement($i.getText(), $u.result); }
     | UNIT i=IDENTIFIER { String prefix = null; } (PREFIX p=IDENTIFIER { prefix = $p.getText(); })? EQUAL
         n=numeric_value OBRAKET u=unit_expression CBRAKET { $result = new DeclareDerivedUnitStatement($i.getText(), $u.result, $n.result, prefix); }
     | UNIT i=IDENTIFIER { String prefix = null; } (PREFIX p=IDENTIFIER)? { prefix = $p.getText(); } EQUAL
