@@ -10,7 +10,7 @@ data class DerivedUnit(val name: String, val unit: CompositeUnit, val coefficien
     override val dimension: Dimension
         get() = unit.dimension
 
-    override fun toString(): String {
-        return name
-    }
+//    override fun toString(): String {
+//        return name
+//    }
 }

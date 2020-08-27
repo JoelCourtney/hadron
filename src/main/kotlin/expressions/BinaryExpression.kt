@@ -38,7 +38,7 @@ data class BinaryExpression(val bop: BinaryOperation, val left: Expression, val 
 
     override fun evalDimension(env: Environment): Dimension {
         val l = left as UnitExpression
-        val r = left as UnitExpression
+        val r = right as UnitExpression
         return when (bop) {
             MULTIPLY -> l.evalDimension(env) multiply r.evalDimension(env)
             DIVIDE -> l.evalDimension(env) divide r.evalDimension(env)
