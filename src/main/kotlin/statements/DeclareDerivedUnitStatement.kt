@@ -8,6 +8,6 @@ import values.NumericValue
 
 data class DeclareDerivedUnitStatement(val name: String, val unit: UnitExpression, val coef: NumericValue, val prefix: String?): Statement {
     override fun exec(env: Environment) {
-        env.declareUnit(name, DerivedUnit(name, unit.evalUnit(env) as CompositeUnit, coef))
+        env.declareUnit(name, DerivedUnit(name, unit.evalUnit(env), coef))
     }
 }

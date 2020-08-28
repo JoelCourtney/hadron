@@ -8,7 +8,6 @@ data class HadronFile(val statements: ArrayList<Statement>) {
         env.push(StackFrame(null))
         for (statement in statements) {
             statement.exec(env)
-            println(env)
         }
         env.pop()
     }

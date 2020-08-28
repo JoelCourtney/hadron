@@ -13,4 +13,14 @@ unit prefix SI = [
     k: 1000
 ]
 
-unit m prefix SI = [[Distance]]
+unit m = [[Distance]]
+unit km = 1000[m]
+
+unit J = [[Energy]]
+unit eV = 1.602176634e-19[J]
+
+val d = 5.2 [km]
+println(d + 2[m] to [m])
+
+val e = 10[J]
+println(e * 10[m])

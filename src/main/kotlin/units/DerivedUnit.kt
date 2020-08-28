@@ -1,10 +1,9 @@
 package units
 
 import values.CommonValues
-import values.IntegerValue
 import values.NumericValue
 
-data class DerivedUnit(val name: String, val unit: CompositeUnit, val coefficient: NumericValue): Unit {
+data class DerivedUnit(val name: String, val unit: Unit, val coefficient: NumericValue): Unit {
     override val components: Map<Unit, NumericValue>
         get() = mapOf(this to CommonValues.one)
 
@@ -16,7 +15,7 @@ data class DerivedUnit(val name: String, val unit: CompositeUnit, val coefficien
         return comps to factor.multiply(coefficient) as NumericValue
     }
 
-//    override fun toString(): String {
-//        return name
-//    }
+    override fun toString(): String {
+        return name
+    }
 }

@@ -52,6 +52,11 @@ UNIT : U N I T;
 DIM : D I M;
 PREFIX : P R E F I X;
 
+TO: T O;
+
+LOOP : L O O P;
+FOR : F O R;
+WHILE : W H I L E;
 
 PLUS : '+';
 MINUS : '-';

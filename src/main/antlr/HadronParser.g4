@@ -41,7 +41,7 @@ statement returns [Statement result]
     | UNIT DIM i=IDENTIFIER EQUAL OBRAKET OBRAKET u=unit_expression CBRAKET CBRAKET { $result = new DeclareDerivedDimensionStatement($i.getText(), $u.result); }
     | UNIT i=IDENTIFIER { String prefix = null; } (PREFIX p=IDENTIFIER { prefix = $p.getText(); })? EQUAL
         n=numeric_value OBRAKET u=unit_expression CBRAKET { $result = new DeclareDerivedUnitStatement($i.getText(), $u.result, $n.result, prefix); }
-    | UNIT i=IDENTIFIER { String prefix = null; } (PREFIX p=IDENTIFIER)? { prefix = $p.getText(); } EQUAL
+    | UNIT i=IDENTIFIER { String prefix = null; } (PREFIX p=IDENTIFIER { prefix = $p.getText(); })? EQUAL
         OBRAKET OBRAKET u=unit_expression CBRAKET CBRAKET { $result = new DeclareBaseUnitStatement($i.getText(), $u.result, prefix); }
     | UNIT PREFIX id=IDENTIFIER EQUAL OBRAKET NL* { Map<String, NumericValue> prefixes = new HashMap<String, NumericValue>(); } (
         i=IDENTIFIER COLON n=numeric_value sep { prefixes.put($i.getText(), $n.result); }
@@ -57,6 +57,8 @@ expression returns [Expression result]
     | v=BOOLEAN_LITERAL { $result = new BooleanValue($v.getText()); }
     | v=STRING_LITERAL { $result = new StringValue($v.getText()); }
     | n=numeric_value { $result = $n.result; }
+    | n=numeric_value OBRAKET u=unit_expression CBRAKET { $result = new UnitNumericExpression($n.result, $u.result); }
+    | e=expression TO OBRAKET u=unit_expression CBRAKET { $result = new UnitConvertExpression($e.result, $u.result); }
     | i=IDENTIFIER { $result = new IdentifierExpression($i.getText()); }
     | i=IDENTIFIER OPAREN { List<Expression> args = new ArrayList<Expression>(); } (
         (

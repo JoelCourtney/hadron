@@ -30,15 +30,17 @@ data class CompositeUnit(
         return newMap to factor
     }
 
-//    override fun toString(): String {
-//        var res = ""
-//        for ((k,v) in components) {
-//            res += if (!v.equal(CommonValues.one).v) {
-//                "$k^$v "
-//            } else {
-//                "$k "
-//            }
-//        }
-//        return res
-//    }
+    override fun toString(): String {
+        var res = ""
+        for ((k,v) in components) {
+            res += if (!v.equal(CommonValues.one).v) {
+                "$k^$v "
+            } else {
+                "$k "
+            }
+        }
+        return if (res.last() == ' ') {
+            res.substring(0..res.length-2)
+        } else res
+    }
 }
