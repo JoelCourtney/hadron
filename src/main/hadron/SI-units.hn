@@ -16,5 +16,8 @@ unit prefix SI = [
 ]
 
 unit m prefix SI = [[Distance]]
-unit J prefix SI = [[Energy]]
+unit g prefix SI = [[Mass]]
+unit s prefix SI = [[Time]]
+
+unit J prefix SI = 1[kg * m^2 / s^2]
 unit eV prefix SI = 1.602176634e-19[J]

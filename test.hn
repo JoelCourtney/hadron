@@ -1,4 +1,8 @@
-import common-units
+import SI-units
 
-val a = 5[mJ]
-println(a to [MeV])
+val a = 5[g * m^2/ s^2]
+
+println(a to [J])
+
+val b = 5[m^2]
+println(b to [mm^2])

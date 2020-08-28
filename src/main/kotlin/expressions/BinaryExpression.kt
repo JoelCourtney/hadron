@@ -27,10 +27,9 @@ data class BinaryExpression(val bop: BinaryOperation, val left: Expression, val 
 
     override fun evalUnit(env: Environment): Unit {
         val l = left as UnitExpression
-        val r = right as UnitExpression
         return when (bop) {
-            MULTIPLY -> l.evalUnit(env) multiply r.evalUnit(env)
-            DIVIDE -> l.evalUnit(env) divide r.evalUnit(env)
+            MULTIPLY -> l.evalUnit(env) multiply (right as UnitExpression).evalUnit(env)
+            DIVIDE -> l.evalUnit(env) divide (right as UnitExpression).evalUnit(env)
             EXPONENTIATE -> l.evalUnit(env) power right.eval(env) as NumericValue
             else -> TODO("make an error for this")
         }
