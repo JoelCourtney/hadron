@@ -1,24 +1,4 @@
-unit dim Distance
-unit dim Time
-unit dim Mass
-
-unit dim Speed = [[Distance / Time]]
-unit dim Acceleration = [[Speed / Time]]
-unit dim Force = [[Acceleration * Mass]]
-unit dim Energy = [[Force * Distance]]
-unit dim Torque = [[Force * Distance]]
-
-unit prefix SI = [
-    m: 0.001
-    c: 0.01
-    k: 1000
-    M: 1000000
-]
-
-unit m prefix SI = [[Distance]]
-
-unit J prefix SI = [[Energy]]
-unit eV prefix SI = 1.602176634e-19[J]
+import common-units
 
 val a = 5[mJ]
 println(a to [MeV])

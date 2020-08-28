@@ -58,6 +58,8 @@ LOOP : L O O P;
 FOR : F O R;
 WHILE : W H I L E;
 
+IMPORT : I M P O R T;
+
 PLUS : '+';
 MINUS : '-';
 STAR : '*';

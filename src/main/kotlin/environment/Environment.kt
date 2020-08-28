@@ -59,4 +59,8 @@ data class Environment(val stack: MutableList<StackFrame> = mutableListOf()) {
     fun getTop(): StackFrame {
         return stack.last()
     }
+
+    fun absorbFrame(f: StackFrame) {
+        stack.last().absorb(f)
+    }
 }

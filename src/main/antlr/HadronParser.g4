@@ -45,7 +45,8 @@ statement returns [Statement result]
         OBRAKET OBRAKET u=unit_expression CBRAKET CBRAKET { $result = new DeclareBaseUnitStatement($i.getText(), $u.result, prefix); }
     | UNIT PREFIX id=IDENTIFIER EQUAL OBRAKET NL* { Map<String, NumericValue> prefixes = new HashMap<String, NumericValue>(); } (
         i=IDENTIFIER COLON n=numeric_value sep { prefixes.put($i.getText(), $n.result); }
-    )* i=IDENTIFIER COLON n=numeric_value sep? { prefixes.put($i.getText(), $n.result); } CBRAKET { $result = new DeclareUnitPrefixStatement($id.getText(), prefixes); };
+    )* i=IDENTIFIER COLON n=numeric_value sep? { prefixes.put($i.getText(), $n.result); } CBRAKET { $result = new DeclareUnitPrefixStatement($id.getText(), prefixes); }
+    | IMPORT im=import_identifier { $result = new ImportStatement($im.result); };
 
 expression returns [Expression result]
     : l=expression bop=CARROT r=expression { $result = new BinaryExpression($bop.getText(), $l.result, $r.result); }
@@ -82,5 +83,8 @@ unit_expression returns [UnitExpression result]
     : l=unit_expression bop=CARROT e=numeric_value { $result = new BinaryExpression($bop.getText(), (Expression) $l.result, (Expression) $e.result); }
     | l=unit_expression bop=(STAR | SLASH) r=unit_expression { $result = new BinaryExpression($bop.getText(), (Expression) $l.result, (Expression) $r.result); }
     | i=IDENTIFIER { $result = new IdentifierExpression($i.getText()); };
+
+import_identifier returns [String result]
+    : id=IDENTIFIER { $result = $id.getText(); } (MINUS i=IDENTIFIER { $result += "-" + $i.getText(); })*;
 
 sep : SEMICOLON NL* | NL+;

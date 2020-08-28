@@ -90,4 +90,19 @@ data class StackFrame(
             }
         }
     }
+
+    fun absorb(f: StackFrame) {
+        for ((name, varl) in f.varls) {
+            declareVarl(name, varl)
+        }
+        for ((name, unit) in f.units) {
+            declareUnit(name, unit)
+        }
+        for ((name, prefix) in f.unitPrefixes) {
+            declareUnitPrefix(name, prefix)
+        }
+        for ((name, dim) in f.dimensions) {
+            declareDimension(name, dim)
+        }
+    }
 }
