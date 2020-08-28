@@ -52,7 +52,7 @@ expression returns [Expression result]
     | l=expression bop=(STAR | SLASH) r=expression { $result = new BinaryExpression($bop.getText(), $l.result, $r.result); }
     | l=expression bop=(PLUS | MINUS) r=expression { $result = new BinaryExpression($bop.getText(), $l.result, $r.result); }
     | l=expression bop=(OHAIRPIN | CHAIRPIN | OHAIRPINEQUAL | CHAIRPINEQUAL) r=expression { $result = new BinaryExpression($bop.getText(), $l.result, $r.result); }
-    | l=expression bop=(EQUAL | BANG_EQUAL) r=expression { $result = new BinaryExpression($bop.getText(), $l.result, $r.result); }
+    | l=expression bop=(EQUAL | BANG) EQUAL r=expression { $result = new BinaryExpression($bop.getText() + "=", $l.result, $r.result); }
     | uop=MINUS expression { $result = new UnaryExpression($uop.getText(), $expression.result); }
     | v=BOOLEAN_LITERAL { $result = new BooleanValue($v.getText()); }
     | v=STRING_LITERAL { $result = new StringValue($v.getText()); }

@@ -78,7 +78,6 @@ CHAIRPIN : '>';
 OHAIRPINEQUAL : '<=';
 CHAIRPINEQUAL : '>=';
 BANG : '!';
-BANG_EQUAL : '!=';
 PERCENT : '%';
 HASH : '#';
 DOLLAR : '$';

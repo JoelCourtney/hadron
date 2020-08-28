@@ -13,7 +13,7 @@ data class IfStatement(val condition: Expression, val body: Expression): Stateme
                     body.eval(env)
                 }
             }
-            else -> TODO("uhhh not sure")
+            else -> TODO("make an error for this")
         }
     }
 }
