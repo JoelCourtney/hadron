@@ -76,8 +76,8 @@ expression returns [Expression result]
     )? CBRACE { $result = new BlockExpression(statements); };
 
 numeric_value returns [NumericValue result]
-    : v=INTEGER_LITERAL { $result = new IntegerValue($v.getText()); }
-    | v=(FLOAT_LITERAL | SCIENTIFIC_FLOAT_LITERAL) { $result = new FloatValue($v.getText()); };
+    : { boolean neg = false; }(MINUS { neg = true; })? v=INTEGER_LITERAL { $result = new IntegerValue(((neg)?"-":"")+$v.getText()); }
+    | { boolean neg = false; }(MINUS { neg = true; })? v=(FLOAT_LITERAL | SCIENTIFIC_FLOAT_LITERAL) { $result = new FloatValue(((neg)?"-":"")+$v.getText()); };
 
 unit_expression returns [UnitExpression result]
     : l=unit_expression bop=CARROT e=numeric_value { $result = new BinaryExpression($bop.getText(), (Expression) $l.result, (Expression) $e.result); }

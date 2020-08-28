@@ -10,7 +10,7 @@ import values.NumericValue
 
 data class DeclareBaseUnitStatement(val name: String, val dim: UnitExpression, val prefix: String?): Statement {
     override fun exec(env: Environment) {
-        val base = BaseUnit(name, dim.evalDimension(env))
+        val base = BaseUnit(name, dim.evalDimension(env) as BaseDimension)
         env.declareUnit(name, base)
         if (prefix != null) {
             val pre = env.getUnitPrefix(prefix)

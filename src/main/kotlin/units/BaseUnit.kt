@@ -4,7 +4,7 @@ import values.CommonValues
 import values.IntegerValue
 import values.NumericValue
 
-data class BaseUnit(val name: String, override val dimension: Dimension): Unit {
+data class BaseUnit(val name: String, override val dimension: BaseDimension): Unit {
     override val components: Map<Unit, NumericValue>
         get() = mapOf(this to CommonValues.one)
 

@@ -7,6 +7,6 @@ import units.DerivedDimension
 
 data class DeclareDerivedDimensionStatement(val name: String, val dim: UnitExpression): Statement {
     override fun exec(env: Environment) {
-        env.declareDimension(name, DerivedDimension(name, dim.evalDimension(env) as CompositeDimension))
+        env.declareDimension(name, DerivedDimension(name, dim.evalDimension(env)))
     }
 }

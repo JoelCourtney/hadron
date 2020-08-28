@@ -1,23 +1,53 @@
-unit dim Distance
-unit dim Time
-unit dim Mass
-
-unit dim Speed = [[Distance / Time]]
-unit dim Acceleration = [[Speed / Time]]
-unit dim Force = [[Acceleration * Mass]]
-unit dim Energy = [[Force * Distance]]
-unit dim Torque = [[Force * Distance]]
+import dimensions
 
 unit prefix SI = [
-    m: 0.001
-    c: 0.01
-    k: 1000
-    M: 1000000
+    y:  0.000000000000000000000001
+    z:  0.000000000000000000001
+    a:  0.000000000000000001
+    f:  0.000000000000001
+    p:  0.000000000001
+    n:  0.000000001
+    u:  0.000001
+    m:  0.001
+    c:  0.01
+    d:  0.1
+    da: 10
+    h:  100
+    k:  1000
+    M:  1000000
+    G:  1000000000
+    T:  1000000000000
+    P:  1000000000000000
+    E:  1000000000000000000
+    Z:  1000000000000000000000.0
+    Y:  1000000000000000000000000.0
 ]
 
+unit rad = [[Angle]]
+unit sr = 1[rad^2]
+unit mol prefix SI = [[Amount]]
+unit s prefix SI = [[Time]]
 unit m prefix SI = [[Distance]]
 unit g prefix SI = [[Mass]]
-unit s prefix SI = [[Time]]
-
-unit J prefix SI = 1[kg * m^2 / s^2]
-unit eV prefix SI = 1.602176634e-19[J]
+unit A prefix SI = [[Current]]
+unit K prefix SI = [[Temperature]]
+unit cd prefix SI = [[LuminousIntensity]]
+unit Hz prefix SI = 1[s^-1]
+unit N prefix SI = 1[kg * m / s^2]
+unit Pa prefix SI = 1[N / m^2]
+unit J prefix SI = 1[N * m]
+unit W prefix SI = 1[J / s]
+unit C prefix SI = 1[A / s]
+unit V prefix SI = 1[J / C]
+unit F prefix SI = 1[C / V]
+unit ohm prefix SI = 1[V / A]
+unit S prefix SI = 1[ohm^-1]
+unit Wb prefix SI = 1[V * s]
+unit T prefix SI = 1[Wb / m^2]
+unit H prefix SI = 1[Wb / A]
+unit lm prefix SI = 1[cd / sr]
+unit lx prefix SI = 1[lm / m^2]
+unit Bq prefix SI = 1[Hz]
+unit Gy prefix SI = 1[J / kg]
+unit Sv prefix SI = 1[J / kg]
+unit kat prefix SI = 1[mol / s]

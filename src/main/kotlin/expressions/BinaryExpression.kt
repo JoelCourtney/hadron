@@ -37,10 +37,9 @@ data class BinaryExpression(val bop: BinaryOperation, val left: Expression, val 
 
     override fun evalDimension(env: Environment): Dimension {
         val l = left as UnitExpression
-        val r = right as UnitExpression
         return when (bop) {
-            MULTIPLY -> l.evalDimension(env) multiply r.evalDimension(env)
-            DIVIDE -> l.evalDimension(env) divide r.evalDimension(env)
+            MULTIPLY -> l.evalDimension(env) multiply (right as UnitExpression).evalDimension(env)
+            DIVIDE -> l.evalDimension(env) divide (right as UnitExpression).evalDimension(env)
             EXPONENTIATE -> l.evalDimension(env) power right.eval(env) as NumericValue
             else -> TODO("make an error for this")
         }

@@ -1,0 +1,69 @@
+unit dim Amount // I know its dumb but mols are hard.
+
+unit dim Angle // Also angles are hard
+unit dim SolidAngle = [[Angle^2]]
+
+unit dim Time
+
+unit dim Distance
+unit dim Length = [[Distance]]
+
+unit dim Area = [[Distance^2]]
+unit dim Volume = [[Distance^3]]
+
+unit dim Mass
+
+unit dim Speed = [[Distance / Time]]
+unit dim Velocity = [[Speed]]
+
+unit dim Acceleration = [[Distance / Time^2]]
+
+unit dim Temperature
+
+unit dim Current
+unit dim ElectricCharge = [[Current * Time]]
+
+unit dim LuminousIntensity
+
+unit dim Frequency = [[Time^-1]]
+unit dim Radioactivity = [[Frequency]]
+
+unit dim Force = [[Acceleration * Mass]]
+unit dim Weight = [[Force]]
+
+unit dim Energy = [[Force * Distance]]
+unit dim Work = [[Energy]]
+unit dim Heat = [[Energy]]
+
+unit dim Pressure = [[Force / Distance^2]]
+unit dim Stress = [[Pressure]]
+
+unit dim Power = [[Energy / Time]]
+unit dim RadiantFlux = [[Power]]
+
+unit dim Voltage = [[Energy / ElectricCharge]]
+
+unit dim Capacitance = [[ElectricCharge / Voltage]]
+
+unit dim Resistance = [[Voltage / Current]]
+unit dim Impedance = [[Resistance]]
+unit dim Reactance = [[Resistance]]
+
+unit dim ElectricalConductance = [[Current / Voltage]]
+
+unit dim MagneticFlux = [[Voltage * Time]]
+
+unit dim MagneticFluxDensity = [[MagneticFlux / Area]]
+
+unit dim Inductance = [[MagneticFluxDensity / Current]]
+
+unit dim LuminousIntensity
+
+unit dim LuminousFlux = [[LuminousIntensity / SolidAngle]]
+
+unit dim Illuminance = [[LuminousFlux / Area]]
+
+unit dim AbsorbedDose = [[Energy / Mass]]
+unit dim EquivalentDose = [[AbsorbedDose]]
+
+unit dim CatalyticActivity = [[Amount / Time]]
