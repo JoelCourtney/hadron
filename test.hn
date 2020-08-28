@@ -9,18 +9,16 @@ unit dim Energy = [[Force * Distance]]
 unit dim Torque = [[Force * Distance]]
 
 unit prefix SI = [
-    c: 0.1
+    m: 0.001
+    c: 0.01
     k: 1000
+    M: 1000000
 ]
 
-unit m = [[Distance]]
-unit km = 1000[m]
+unit m prefix SI = [[Distance]]
 
-unit J = [[Energy]]
-unit eV = 1.602176634e-19[J]
+unit J prefix SI = [[Energy]]
+unit eV prefix SI = 1.602176634e-19[J]
 
-val d = 5.2 [km]
-println(d + 2[m] to [m])
-
-d = 10[J]
-println(d / 10[m] to [eV/km])
+val a = 5[mJ]
+println(a to [MeV])
