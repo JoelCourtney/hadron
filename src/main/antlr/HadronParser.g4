@@ -56,7 +56,7 @@ expression returns [Expression result]
     | l=expression bop=(EQUAL | BANG) EQUAL r=expression { $result = new BinaryExpression($bop.getText() + "=", $l.result, $r.result); }
     | uop=MINUS expression { $result = new UnaryExpression($uop.getText(), $expression.result); }
     | v=BOOLEAN_LITERAL { $result = new BooleanValue($v.getText()); }
-    | v=STRING_LITERAL { $result = new StringValue($v.getText()); }
+    | v=STRING_LITERAL { String t = $v.getText(); $result = new StringValue(t.substring(1, t.length()-1)); }
     | n=numeric_value { $result = $n.result; }
     | n=numeric_value OBRAKET u=unit_expression CBRAKET { $result = new UnitNumericExpression($n.result, $u.result); }
     | e=expression TO OBRAKET u=unit_expression CBRAKET { $result = new UnitConvertExpression($e.result, $u.result); }

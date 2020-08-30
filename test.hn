@@ -1,8 +1,5 @@
-import SI-units
+print("hellO")
 
-val a = 5[g * m^2/ s^2]
+import constants
 
-println(a to [J])
-
-val b = 5[m^2]
-println(b to [mm^2])
+print(pi)

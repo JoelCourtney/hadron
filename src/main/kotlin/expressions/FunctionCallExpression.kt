@@ -1,6 +1,6 @@
 package expressions
 
-import builtins.builtinRegistry
+import BuiltinFunctions
 import environment.Environment
 import environment.StackFrame
 import values.FunctionValue
@@ -9,9 +9,9 @@ import values.VoidValue
 
 data class FunctionCallExpression(val functionName: String, val argExps: List<Expression>): Expression {
     override fun eval(env: Environment): Value {
-        val builtin = builtinRegistry[functionName]
+        val builtin = BuiltinFunctions.lookup(functionName)
         if (builtin != null) {
-            return builtin.exec( argExps.map { it.eval(env) })
+            return builtin( argExps.map { it.eval(env) }) as Value
         }
         val func = env.getVarl(functionName)
         if (func is FunctionValue) {

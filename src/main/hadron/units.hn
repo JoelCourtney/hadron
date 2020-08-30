@@ -51,3 +51,25 @@ unit Bq prefix SI = 1[Hz]
 unit Gy prefix SI = 1[J / kg]
 unit Sv prefix SI = 1[J / kg]
 unit kat prefix SI = 1[mol / s]
+
+unit min = 60[s]
+unit hour = 3600[s]
+unit day = 86400[s]
+
+unit AU prefix SI = 149597870700[m]
+unit pc prefix SI = 30856780000000000[m]
+unit ly prefix SI = 9460731755734000[m]
+
+unit deg = 0.017453292519943295[rad]
+unit min_angle = 0.016666666666666666[deg]
+unit sec_angle = 0.016666666666666666[min_angle]
+
+unit ha = 1[hm^2]
+
+unit L prefix SI = 1[dm^3]
+
+unit t prefix SI = 1[Mg]
+
+unit Da prefix SI = 1.66053904020e-27[kg]
+
+unit eV prefix SI = 1.602176634e-19[J]
