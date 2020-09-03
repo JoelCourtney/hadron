@@ -37,3 +37,7 @@ You can also make a hadron executable file with a typical shabang:
 
 println("Hello World!")
 ```
+
+## Syntax
+
+I really don't want to do that right now.
