@@ -11,7 +11,7 @@ Clone this repo in a permanent location, then build it. The `gradle` command may
 ```bash
 git clone git@github.com:JoelCourtney/hadron.git
 cd hadron
-gradle executable
+gradle hadron
 ```
 
 Link the `hadron` executable to somewhere in your path, or add the repo to your path.

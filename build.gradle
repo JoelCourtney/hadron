@@ -71,7 +71,7 @@ task(pack, type: Exec) {
 
 
 
-task(executable, type: Exec) {
+task(hadron, type: Exec) {
     dependsOn pack
     workingDir "."
     commandLine 'chmod', '+x', 'hadron'

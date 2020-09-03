@@ -38,3 +38,5 @@ src/main/antlr/gen/
 
 # Mac
 .DS_Store
+
+hadron
