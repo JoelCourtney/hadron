@@ -44,7 +44,7 @@ data class UnitNumericValue(val n: NumericValue, val u: Unit): Value {
             is BooleanValue,
             is IntegerValue,
             is FloatValue -> UnitNumericValue(n.divide(with) as NumericValue, u)
-            is UnitNumericValue -> UnitNumericValue(with.n.divide(n) as NumericValue, u.divide(with.u))
+            is UnitNumericValue -> UnitNumericValue(n.divide(with.n) as NumericValue, u.divide(with.u))
             else -> TODO("make an error for this")
         }
     }

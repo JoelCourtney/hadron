@@ -55,6 +55,7 @@ unit kat prefix SI = 1[mol / s]
 unit min = 60[s]
 unit hour = 3600[s]
 unit day = 86400[s]
+unit year = 365.2425[day]
 
 unit AU prefix SI = 149597870700[m]
 unit pc prefix SI = 30856780000000000[m]

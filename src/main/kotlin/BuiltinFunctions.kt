@@ -1,5 +1,4 @@
-import values.Value
-import values.VoidValue
+import values.*
 import kotlin.reflect.KFunction
 
 object BuiltinFunctions {
@@ -27,5 +26,19 @@ object BuiltinFunctions {
             print(arg)
         }
         return VoidValue
+    }
+
+    fun sqrt(args: List<Value>): Value {
+        if (args.size != 1) {
+            TODO("make an error for this")
+        }
+        val arg = args[0]
+        return when(arg) {
+            is BooleanValue -> arg
+            is IntegerValue -> FloatValue(kotlin.math.sqrt(arg.v as Double))
+            is FloatValue -> FloatValue(kotlin.math.sqrt(arg.v as Double))
+            is UnitNumericValue -> UnitNumericValue(sqrt(listOf(arg.n)) as NumericValue, arg.u.power(FloatValue(0.5)))
+            else -> TODO("make an error for this")
+        }
     }
 }
