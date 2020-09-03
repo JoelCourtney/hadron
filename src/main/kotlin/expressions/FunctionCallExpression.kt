@@ -11,7 +11,7 @@ data class FunctionCallExpression(val functionName: String, val argExps: List<Ex
     override fun eval(env: Environment): Value {
         val builtin = BuiltinFunctions.lookup(functionName)
         if (builtin != null) {
-            return builtin( argExps.map { it.eval(env) }) as Value
+            return builtin( argExps.map { it.eval(env) })
         }
         val func = env.getVarl(functionName)
         if (func is FunctionValue) {
