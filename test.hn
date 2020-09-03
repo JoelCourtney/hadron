@@ -1,11 +1,6 @@
 import units
 
-val hbar = 1.0545714e-34[m^2*kg/s]
+val a = (2+2)^(2/3)
+println(a)
 
-val m = 1e-30[kg]
-
-val R = 2e-10[m]
-
-val E = hbar^2 / R^2 / 2 / m
-
-println(E to [J])
+println(2.51^3)

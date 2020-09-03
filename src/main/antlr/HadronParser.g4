@@ -73,7 +73,8 @@ expression returns [Expression result]
         s=statement sep { statements.add($s.result); }
     )* (
         NL* s=statement { statements.add($s.result); }
-    )? CBRACE { $result = new BlockExpression(statements); };
+    )? CBRACE { $result = new BlockExpression(statements); }
+    | OPAREN e=expression CPAREN { $result = $e.result; };
 
 numeric_value returns [NumericValue result]
     : { boolean neg = false; }(MINUS { neg = true; })? v=INTEGER_LITERAL { $result = new IntegerValue(((neg)?"-":"")+$v.getText()); }
