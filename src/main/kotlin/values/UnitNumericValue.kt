@@ -1,5 +1,6 @@
 package values
 
+import units.EmptyUnit
 import units.Unit
 
 data class UnitNumericValue(val n: NumericValue, val u: Unit): Value {
@@ -34,7 +35,14 @@ data class UnitNumericValue(val n: NumericValue, val u: Unit): Value {
             is BooleanValue,
             is IntegerValue,
             is FloatValue -> UnitNumericValue(n.multiply(with) as NumericValue, u)
-            is UnitNumericValue -> UnitNumericValue(with.n.multiply(n) as NumericValue, u.multiply(with.u))
+            is UnitNumericValue -> {
+                val newU = u.multiply(with.u)
+                if (newU != EmptyUnit) {
+                    UnitNumericValue(n.multiply(with.n) as NumericValue, newU).checkEmpty()
+                } else {
+                    n.multiply(with.n)
+                }
+            }
             else -> TODO("make an error for this")
         }
     }
@@ -44,7 +52,14 @@ data class UnitNumericValue(val n: NumericValue, val u: Unit): Value {
             is BooleanValue,
             is IntegerValue,
             is FloatValue -> UnitNumericValue(n.divide(with) as NumericValue, u)
-            is UnitNumericValue -> UnitNumericValue(n.divide(with.n) as NumericValue, u.divide(with.u))
+            is UnitNumericValue -> {
+                val newU = u.divide(with.u)
+                if (newU != EmptyUnit) {
+                    UnitNumericValue(n.divide(with.n) as NumericValue, newU).checkEmpty()
+                } else {
+                    n.divide(with.n)
+                }
+            }
             else -> TODO("make an error for this")
         }
     }
@@ -124,5 +139,14 @@ data class UnitNumericValue(val n: NumericValue, val u: Unit): Value {
 
     override fun toString(): String {
         return "$n[$u]"
+    }
+
+    private fun checkEmpty(): Value {
+        return if (u.isEquivalentTo(EmptyUnit)) {
+            val fac = u.convert(EmptyUnit)
+            n.multiply(fac)
+        } else {
+            this
+        }
     }
 }

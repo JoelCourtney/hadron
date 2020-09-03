@@ -30,6 +30,7 @@ data class IntegerValue(val v: Long): NumericValue {
             is BooleanValue -> IntegerValue(v * with.v.toLong())
             is IntegerValue -> IntegerValue(v * with.v)
             is FloatValue -> FloatValue(v * with.v)
+            is UnitNumericValue -> UnitNumericValue(multiply(with.n) as NumericValue, with.u)
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
         }
@@ -40,6 +41,7 @@ data class IntegerValue(val v: Long): NumericValue {
             is BooleanValue -> IntegerValue(v / with.v.toLong())
             is IntegerValue -> FloatValue(v.toDouble() / with.v)
             is FloatValue -> FloatValue(v / with.v)
+            is UnitNumericValue -> UnitNumericValue(multiply(with.n) as NumericValue, with.u.power(IntegerValue(-1)))
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
         }

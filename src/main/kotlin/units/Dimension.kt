@@ -34,6 +34,8 @@ interface Dimension {
             if (value.equal(CommonValues.one).v) {
                 return key
             }
+        } else if (components.isEmpty()) {
+            return EmptyDimension
         }
         return CompositeDimension(components)
     }

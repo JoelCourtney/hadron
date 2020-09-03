@@ -35,6 +35,8 @@ interface Unit {
             if (value.equal(CommonValues.one).v) {
                 return key
             }
+        } else if (components.isEmpty()) {
+            return EmptyUnit
         }
         return CompositeUnit(components)
     }

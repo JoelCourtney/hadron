@@ -1,6 +1,7 @@
 import units
 
-val a = (2+2)^(2/3)
-println(a)
+val dp = 1[AU]
+val P = 1[Myr]
 
-println(2.51^3)
+val e = dp/((P/1[yr])^(2/3)*1[AU])
+println(e)
