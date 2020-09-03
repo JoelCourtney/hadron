@@ -28,14 +28,14 @@ interface Dimension {
     }
 
     private fun downsize(comps: MutableMap<BaseDimension, NumericValue>): Dimension {
-        val comps = comps.filterValues { !it.equal(CommonValues.zero).v }
-        if (comps.size == 1) {
-            val (key, value) = comps.asIterable().first()
+        val components = comps.filterValues { !it.equal(CommonValues.zero).v }
+        if (components.size == 1) {
+            val (key, value) = components.asIterable().first()
             if (value.equal(CommonValues.one).v) {
                 return key
             }
         }
-        return CompositeDimension(comps)
+        return CompositeDimension(components)
     }
 
     fun isEquivalentTo(with: Dimension): Boolean {

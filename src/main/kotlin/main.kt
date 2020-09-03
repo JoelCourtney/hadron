@@ -1,8 +1,13 @@
 import java.io.File
 
-fun main() {
-    val source = HadronParser.parseHadron(File("test.hn").readText())
-    source.exec()
+fun main(args: Array<String>) {
+    if (args.size == 1) {
+        val source = HadronParser.parseHadron(File(args[0]).readText())
+        source.exec()
+    } else {
+        val source = HadronParser.parseHadron(File("test.hn").readText())
+        source.exec()
+    }
 
 //    val distance = BaseDimension("Distance")
 //    val meter = BaseUnit("m", distance)
