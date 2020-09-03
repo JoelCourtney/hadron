@@ -19,7 +19,7 @@ options { tokenVocab = HadronLexer; }
 }
 
 file returns [HadronFile result]
-    : { ArrayList<Statement> statements = new ArrayList<Statement>(); } (
+    : (HASH BANG (~NL)* NL)? NL* { ArrayList<Statement> statements = new ArrayList<Statement>(); } (
         s=statement sep { statements.add($s.result); }
     )* (
         s=statement { statements.add($s.result); }
