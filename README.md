@@ -2,7 +2,11 @@
 
 A small (and slow) language for physics calculations.
 
-## Installation
+## Install
+
+Download the `hadron` file from the latest [Release](https://github.com/JoelCourtney/hadron/releases), and put it somewhere in your path.
+
+## Build from Source
 
 You must have [Java](https://www.java.com/en/) and a recent version of [Gradle](https://gradle.org/) installed.
 
