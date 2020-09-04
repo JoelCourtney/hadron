@@ -38,7 +38,7 @@ object BuiltinFunctions {
         return when(val arg = args[0]) {
             is BooleanValue -> FloatValue(kotlin.math.asin(arg.v.toLong().toDouble()))
             is IntegerValue -> FloatValue(kotlin.math.asin(arg.v.toDouble()))
-            is FloatValue -> FloatValue(kotlin.math.asin(arg.v.toDouble()))
+            is FloatValue -> FloatValue(kotlin.math.asin(arg.v))
             is RationalValue -> FloatValue(kotlin.math.asin(arg.v.toDouble()))
             else -> TODO("make an error for this")
         }
