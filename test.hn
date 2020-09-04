@@ -1,12 +1,1 @@
 import units
-
-val n = 1[mol]
-val R = 8.314[J/mol/K]
-val T = 273[K]
-val P = 1[atm]
-
-//println("2a: " +  (n*R*T/P to [L]))
-
-val k = 1.380649e-23[J/K]
-
-println("2b: " + (P*(50[ft])^3/k/T))

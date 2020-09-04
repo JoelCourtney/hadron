@@ -10,6 +10,7 @@ data class FloatValue(val v: Double): NumericValue {
             is BooleanValue -> FloatValue(v + with.v.toLong())
             is IntegerValue -> FloatValue(v + with.v)
             is FloatValue -> FloatValue(v + with.v)
+            is RationalValue -> FloatValue(v + with.v.toDouble())
             is StringValue -> StringValue(v.toString() + with.v)
             else -> TODO("make an error for this")
         }
@@ -20,6 +21,7 @@ data class FloatValue(val v: Double): NumericValue {
             is BooleanValue -> FloatValue(v - with.v.toLong())
             is IntegerValue -> FloatValue(v - with.v)
             is FloatValue -> FloatValue(v - with.v)
+            is RationalValue -> FloatValue(v - with.v.toDouble())
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
         }
@@ -30,6 +32,7 @@ data class FloatValue(val v: Double): NumericValue {
             is BooleanValue -> FloatValue(v * with.v.toLong())
             is IntegerValue -> FloatValue(v * with.v)
             is FloatValue -> FloatValue(v * with.v)
+            is RationalValue -> FloatValue(v * with.v.toDouble())
             is UnitNumericValue -> UnitNumericValue(multiply(with.n) as NumericValue, with.u)
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
@@ -41,6 +44,7 @@ data class FloatValue(val v: Double): NumericValue {
             is BooleanValue -> FloatValue(v / with.v.toLong())
             is IntegerValue -> FloatValue(v / with.v)
             is FloatValue -> FloatValue(v / with.v)
+            is RationalValue -> FloatValue(v / with.v.toDouble())
             is UnitNumericValue -> UnitNumericValue(multiply(with.n) as NumericValue, with.u.power(IntegerValue(-1)))
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
@@ -52,6 +56,7 @@ data class FloatValue(val v: Double): NumericValue {
             is BooleanValue -> FloatValue(v.pow(with.v.toInt()))
             is IntegerValue -> FloatValue(v.pow(with.v.toInt()))
             is FloatValue -> FloatValue(v.pow(with.v))
+            is RationalValue -> FloatValue(v.pow(with.v.toDouble()))
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
         }
@@ -62,6 +67,7 @@ data class FloatValue(val v: Double): NumericValue {
             is BooleanValue -> BooleanValue(v.compareTo(with.v.toInt()) == 0)
             is IntegerValue -> BooleanValue(v.compareTo(with.v) == 0)
             is FloatValue -> BooleanValue(v == with.v)
+            is RationalValue -> BooleanValue(v == with.v.toDouble())
             is StringValue -> BooleanValue(false)
             else -> TODO("make an error for this")
         }
@@ -72,6 +78,7 @@ data class FloatValue(val v: Double): NumericValue {
             is BooleanValue -> BooleanValue(v.compareTo(with.v.toInt()) != 0)
             is IntegerValue -> BooleanValue(v.compareTo(with.v) != 0)
             is FloatValue -> BooleanValue(v != with.v)
+            is RationalValue -> BooleanValue(v != with.v.toDouble())
             is StringValue -> BooleanValue(true)
             else -> TODO("make an error for this")
         }
@@ -82,6 +89,7 @@ data class FloatValue(val v: Double): NumericValue {
             is BooleanValue -> BooleanValue(v < with.v.toInt())
             is IntegerValue -> BooleanValue(v < with.v)
             is FloatValue -> BooleanValue(v < with.v)
+            is RationalValue -> BooleanValue(v < with.v.toDouble())
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
         }
@@ -92,6 +100,7 @@ data class FloatValue(val v: Double): NumericValue {
             is BooleanValue -> BooleanValue(v > with.v.toInt())
             is IntegerValue -> BooleanValue(v > with.v)
             is FloatValue -> BooleanValue(v > with.v)
+            is RationalValue -> BooleanValue(v > with.v.toDouble())
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
         }
@@ -102,6 +111,7 @@ data class FloatValue(val v: Double): NumericValue {
             is BooleanValue -> BooleanValue(v <= with.v.toInt())
             is IntegerValue -> BooleanValue(v <= with.v)
             is FloatValue -> BooleanValue(v <= with.v)
+            is RationalValue -> BooleanValue(v <= with.v.toDouble())
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
         }
@@ -112,6 +122,7 @@ data class FloatValue(val v: Double): NumericValue {
             is BooleanValue -> BooleanValue(v >= with.v.toInt())
             is IntegerValue -> BooleanValue(v >=with.v)
             is FloatValue -> BooleanValue(v >= with.v)
+            is RationalValue -> BooleanValue(v >= with.v.toDouble())
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
         }

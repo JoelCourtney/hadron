@@ -1,5 +1,7 @@
 package values
 
+import org.jscience.mathematics.number.Rational
+
 data class BooleanValue(val v: Boolean): Value {
     constructor(s: String): this(s.toLowerCase() == "true")
 
@@ -8,6 +10,7 @@ data class BooleanValue(val v: Boolean): Value {
             is BooleanValue -> IntegerValue(v.toLong() + with.v.toLong())
             is IntegerValue -> IntegerValue(v.toLong() + with.v)
             is FloatValue -> FloatValue(v.toInt() + with.v)
+            is RationalValue -> RationalValue(Rational.valueOf(v.toLong(), 1) + with.v).downsize()
             is StringValue -> StringValue(v.toString() + with.v)
             else -> TODO("make an error for this")
         }
@@ -18,6 +21,7 @@ data class BooleanValue(val v: Boolean): Value {
             is BooleanValue -> IntegerValue(v.toLong() - with.v.toLong())
             is IntegerValue -> IntegerValue(v.toLong() - with.v)
             is FloatValue -> FloatValue(v.toInt() - with.v)
+            is RationalValue -> RationalValue(Rational.valueOf(v.toLong(), 1) - with.v).downsize()
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
         }
@@ -28,6 +32,8 @@ data class BooleanValue(val v: Boolean): Value {
             is BooleanValue -> IntegerValue(v.toLong() * with.v.toLong())
             is IntegerValue -> IntegerValue(v.toLong() * with.v)
             is FloatValue -> FloatValue(v.toInt() * with.v)
+            is RationalValue -> RationalValue(Rational.valueOf(v.toLong(), 1) * with.v).downsize()
+            is UnitNumericValue -> UnitNumericValue(multiply(with.n) as NumericValue, with.u)
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
         }
@@ -38,6 +44,8 @@ data class BooleanValue(val v: Boolean): Value {
             is BooleanValue -> IntegerValue(v.toLong() / with.v.toLong())
             is IntegerValue -> IntegerValue(v.toLong() / with.v)
             is FloatValue -> FloatValue(v.toInt() / with.v)
+            is RationalValue -> RationalValue(Rational.valueOf(v.toLong(), 1).divide(with.v)).downsize()
+            is UnitNumericValue -> UnitNumericValue(divide(with.n) as NumericValue, with.u.power(IntegerValue(-1)))
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
         }
@@ -48,6 +56,7 @@ data class BooleanValue(val v: Boolean): Value {
             is BooleanValue -> BooleanValue(if (with.v) v else true)
             is IntegerValue -> BooleanValue(v.toLong().pow(with.v) != 0L)
             is FloatValue -> BooleanValue(v.toLong().pow(with.v) != 0.0)
+            is RationalValue -> BooleanValue(v.toLong().pow(with.v.toDouble()) != 0.0)
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
         }
@@ -58,6 +67,7 @@ data class BooleanValue(val v: Boolean): Value {
             is BooleanValue -> BooleanValue(v == with.v)
             is IntegerValue -> BooleanValue(v.toLong() == with.v)
             is FloatValue -> BooleanValue(with.v == (if(v) 1.0 else 0.0))
+            is RationalValue -> BooleanValue(with.v.equals(v.toLong()))
             is StringValue -> BooleanValue(false)
             else -> TODO("make an error for this")
         }
@@ -68,6 +78,7 @@ data class BooleanValue(val v: Boolean): Value {
             is BooleanValue -> BooleanValue(v != with.v)
             is IntegerValue -> BooleanValue(v.toLong() != with.v)
             is FloatValue -> BooleanValue(with.v != (if(v) 1.0 else 0.0))
+            is RationalValue -> BooleanValue(!with.v.equals(v.toLong()))
             is StringValue -> BooleanValue(true)
             else -> TODO("make an error for this")
         }
@@ -78,6 +89,7 @@ data class BooleanValue(val v: Boolean): Value {
             is BooleanValue -> BooleanValue(!v && with.v)
             is IntegerValue -> BooleanValue(v.toInt() < with.v)
             is FloatValue -> BooleanValue(v.toInt() < with.v)
+            is RationalValue -> BooleanValue(Rational.valueOf(v.toLong(),1) < with.v)
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
         }
@@ -88,6 +100,7 @@ data class BooleanValue(val v: Boolean): Value {
             is BooleanValue -> BooleanValue(v && !with.v)
             is IntegerValue -> BooleanValue(v.toInt() > with.v)
             is FloatValue -> BooleanValue(v.toInt() > with.v)
+            is RationalValue -> BooleanValue(Rational.valueOf(v.toLong(),1) > with.v)
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
         }
@@ -98,6 +111,7 @@ data class BooleanValue(val v: Boolean): Value {
             is BooleanValue -> BooleanValue(!v || with.v)
             is IntegerValue -> BooleanValue(v.toInt() <= with.v)
             is FloatValue -> BooleanValue(v.toInt() <= with.v)
+            is RationalValue -> BooleanValue(Rational.valueOf(v.toLong(),1) <= with.v)
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
         }
@@ -108,6 +122,7 @@ data class BooleanValue(val v: Boolean): Value {
             is BooleanValue -> BooleanValue(v || !with.v)
             is IntegerValue -> BooleanValue(v.toInt() >= with.v)
             is FloatValue -> BooleanValue(v.toInt() >= with.v)
+            is RationalValue -> BooleanValue(Rational.valueOf(v.toLong(),1) >= with.v)
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
         }

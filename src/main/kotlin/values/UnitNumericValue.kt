@@ -14,7 +14,7 @@ data class UnitNumericValue(val n: NumericValue, val u: Unit): Value {
             is StringValue -> StringValue("$this$with")
             is UnitNumericValue -> {
                 val newWith = with.convert(u)
-                UnitNumericValue(newWith.n.add(n) as NumericValue, u)
+                UnitNumericValue(n.add(newWith.n) as NumericValue, u)
             }
             else -> TODO("make an error for this")
         }
@@ -24,7 +24,7 @@ data class UnitNumericValue(val n: NumericValue, val u: Unit): Value {
         return when (with) {
             is UnitNumericValue -> {
                 val newWith = with.convert(u)
-                UnitNumericValue(newWith.n.subtract(n) as NumericValue, u)
+                UnitNumericValue(n.subtract(newWith.n) as NumericValue, u)
             }
             else -> TODO("make an error for this")
         }
@@ -34,7 +34,8 @@ data class UnitNumericValue(val n: NumericValue, val u: Unit): Value {
         return when (with) {
             is BooleanValue,
             is IntegerValue,
-            is FloatValue -> UnitNumericValue(n.multiply(with) as NumericValue, u)
+            is FloatValue,
+            is RationalValue -> UnitNumericValue(n.multiply(with) as NumericValue, u)
             is UnitNumericValue -> {
                 val newU = u.multiply(with.u)
                 if (newU != EmptyUnit) {
@@ -51,7 +52,8 @@ data class UnitNumericValue(val n: NumericValue, val u: Unit): Value {
         return when (with) {
             is BooleanValue,
             is IntegerValue,
-            is FloatValue -> UnitNumericValue(n.divide(with) as NumericValue, u)
+            is FloatValue,
+            is RationalValue -> UnitNumericValue(n.divide(with) as NumericValue, u)
             is UnitNumericValue -> {
                 val newU = u.divide(with.u)
                 if (newU != EmptyUnit) {
@@ -67,8 +69,9 @@ data class UnitNumericValue(val n: NumericValue, val u: Unit): Value {
     override fun exponentiate(with: Value): Value {
         return when (with) {
             is BooleanValue,
-                is IntegerValue,
-                is FloatValue -> UnitNumericValue(n.exponentiate(with) as NumericValue, u.power(with as NumericValue))
+            is IntegerValue,
+            is FloatValue,
+            is RationalValue -> UnitNumericValue(n.exponentiate(with) as NumericValue, u.power(with as NumericValue))
             else -> TODO("make an error for this")
         }
     }
