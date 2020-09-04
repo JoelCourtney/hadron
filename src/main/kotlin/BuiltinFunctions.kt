@@ -1,17 +1,18 @@
 import values.*
-import kotlin.reflect.KFunction
 
 object BuiltinFunctions {
+    val map = mapOf(
+        "println" to ::println,
+        "print" to ::print,
+        "sqrt" to ::sqrt
+    )
     fun lookup(s: String): BuiltinFunction? {
-        if (s == "lookup") {
+        val f = map[s]
+        if (f != null) {
+            return BuiltinFunction(f)
+        } else {
             TODO("make an error for this")
         }
-        for (func in BuiltinFunctions::class.members) {
-            if (func.name == s) {
-                return BuiltinFunction(func as KFunction<*>)
-            }
-        }
-        return null
     }
 
     fun println(args: List<Value>): Value {

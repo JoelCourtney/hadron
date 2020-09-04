@@ -1,7 +1,12 @@
 import units
 
-val dp = 1[AU]
-val P = 1[Myr]
+val n = 1[mol]
+val R = 8.314[J/mol/K]
+val T = 273[K]
+val P = 1[atm]
 
-val e = dp/((P/1[yr])^(2/3)*1[AU])
-println(e)
+//println("2a: " +  (n*R*T/P to [L]))
+
+val k = 1.380649e-23[J/K]
+
+println("2b: " + (P*(50[ft])^3/k/T))

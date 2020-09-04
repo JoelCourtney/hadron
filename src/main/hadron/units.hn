@@ -71,8 +71,12 @@ unit ha = 1[hm^2]
 
 unit L prefix SI = 1[dm^3]
 
-unit t prefix SI = 1[Mg]
+unit t = 1[Mg]
 
 unit Da prefix SI = 1.66053904020e-27[kg]
 
 unit eV prefix SI = 1.602176634e-19[J]
+
+unit atm = 101315[N/m^2]
+
+unit ft = 0.3048[m]
