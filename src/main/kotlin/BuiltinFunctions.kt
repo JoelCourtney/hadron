@@ -8,10 +8,10 @@ object BuiltinFunctions {
     )
     fun lookup(s: String): BuiltinFunction? {
         val f = map[s]
-        if (f != null) {
-            return BuiltinFunction(f)
+        return if (f != null) {
+            BuiltinFunction(f)
         } else {
-            TODO("make an error for this")
+            null
         }
     }
 
