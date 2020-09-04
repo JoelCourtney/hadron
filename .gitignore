@@ -39,4 +39,7 @@ src/main/antlr/gen/
 # Mac
 .DS_Store
 
+# Dokka
+doc/
+
 hadron

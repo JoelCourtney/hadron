@@ -26,6 +26,12 @@ Lastly, create the `$HADRON_ROOT` environment variable, pointing to the `hadron`
 export HADRON_ROOT="/LOCATION/OF/hadron"
 ```
 
+You can build the documentation to the `doc` directory with:
+
+```bash
+gradle dokka
+```
+
 ## Usage
 
 There is currently no REPL mode :(. Write a hadron file (for example `example.hn`), and run it with:
