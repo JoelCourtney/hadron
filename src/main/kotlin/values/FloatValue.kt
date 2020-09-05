@@ -8,7 +8,7 @@ data class FloatValue(val v: Double): NumericValue {
     override fun add(with: Value): Value {
         return when (with) {
             is BooleanValue -> FloatValue(v + with.v.toLong())
-            is IntegerValue -> FloatValue(v + with.v)
+            is IntegerValue -> FloatValue(v + with.v.toDouble())
             is FloatValue -> FloatValue(v + with.v)
             is RationalValue -> FloatValue(v + with.v.toDouble())
             is StringValue -> StringValue(v.toString() + with.v)
@@ -19,7 +19,7 @@ data class FloatValue(val v: Double): NumericValue {
     override fun subtract(with: Value): Value {
         return when (with) {
             is BooleanValue -> FloatValue(v - with.v.toLong())
-            is IntegerValue -> FloatValue(v - with.v)
+            is IntegerValue -> FloatValue(v - with.v.toDouble())
             is FloatValue -> FloatValue(v - with.v)
             is RationalValue -> FloatValue(v - with.v.toDouble())
             is StringValue -> TODO("make an error for this")
@@ -30,7 +30,7 @@ data class FloatValue(val v: Double): NumericValue {
     override fun multiply(with: Value): Value {
         return when (with) {
             is BooleanValue -> FloatValue(v * with.v.toLong())
-            is IntegerValue -> FloatValue(v * with.v)
+            is IntegerValue -> FloatValue(v * with.v.toDouble())
             is FloatValue -> FloatValue(v * with.v)
             is RationalValue -> FloatValue(v * with.v.toDouble())
             is UnitNumericValue -> UnitNumericValue(multiply(with.n) as NumericValue, with.u)
@@ -42,7 +42,7 @@ data class FloatValue(val v: Double): NumericValue {
     override fun divide(with: Value): Value {
         return when (with) {
             is BooleanValue -> FloatValue(v / with.v.toLong())
-            is IntegerValue -> FloatValue(v / with.v)
+            is IntegerValue -> FloatValue(v / with.v.toDouble())
             is FloatValue -> FloatValue(v / with.v)
             is RationalValue -> FloatValue(v / with.v.toDouble())
             is UnitNumericValue -> UnitNumericValue(multiply(with.n) as NumericValue, with.u.power(IntegerValue(-1)))
@@ -54,7 +54,7 @@ data class FloatValue(val v: Double): NumericValue {
     override fun exponentiate(with: Value): Value {
         return when (with) {
             is BooleanValue -> FloatValue(v.pow(with.v.toInt()))
-            is IntegerValue -> FloatValue(v.pow(with.v.toInt()))
+            is IntegerValue -> FloatValue(v.pow(with.v.toDouble()))
             is FloatValue -> FloatValue(v.pow(with.v))
             is RationalValue -> FloatValue(v.pow(with.v.toDouble()))
             is StringValue -> TODO("make an error for this")
@@ -65,7 +65,7 @@ data class FloatValue(val v: Double): NumericValue {
     override fun equal(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(v.compareTo(with.v.toInt()) == 0)
-            is IntegerValue -> BooleanValue(v.compareTo(with.v) == 0)
+            is IntegerValue -> BooleanValue(v.compareTo(with.v.toDouble()) == 0)
             is FloatValue -> BooleanValue(v == with.v)
             is RationalValue -> BooleanValue(v == with.v.toDouble())
             is StringValue -> BooleanValue(false)
@@ -76,7 +76,7 @@ data class FloatValue(val v: Double): NumericValue {
     override fun notEqual(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(v.compareTo(with.v.toInt()) != 0)
-            is IntegerValue -> BooleanValue(v.compareTo(with.v) != 0)
+            is IntegerValue -> BooleanValue(v.compareTo(with.v.toDouble()) != 0)
             is FloatValue -> BooleanValue(v != with.v)
             is RationalValue -> BooleanValue(v != with.v.toDouble())
             is StringValue -> BooleanValue(true)
@@ -87,7 +87,7 @@ data class FloatValue(val v: Double): NumericValue {
     override fun lessThan(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(v < with.v.toInt())
-            is IntegerValue -> BooleanValue(v < with.v)
+            is IntegerValue -> BooleanValue(v < with.v.toDouble())
             is FloatValue -> BooleanValue(v < with.v)
             is RationalValue -> BooleanValue(v < with.v.toDouble())
             is StringValue -> TODO("make an error for this")
@@ -98,7 +98,7 @@ data class FloatValue(val v: Double): NumericValue {
     override fun greaterThan(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(v > with.v.toInt())
-            is IntegerValue -> BooleanValue(v > with.v)
+            is IntegerValue -> BooleanValue(v > with.v.toDouble())
             is FloatValue -> BooleanValue(v > with.v)
             is RationalValue -> BooleanValue(v > with.v.toDouble())
             is StringValue -> TODO("make an error for this")
@@ -109,7 +109,7 @@ data class FloatValue(val v: Double): NumericValue {
     override fun lessThanOrEqual(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(v <= with.v.toInt())
-            is IntegerValue -> BooleanValue(v <= with.v)
+            is IntegerValue -> BooleanValue(v <= with.v.toDouble())
             is FloatValue -> BooleanValue(v <= with.v)
             is RationalValue -> BooleanValue(v <= with.v.toDouble())
             is StringValue -> TODO("make an error for this")
@@ -120,7 +120,7 @@ data class FloatValue(val v: Double): NumericValue {
     override fun greaterThanOrEqual(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(v >= with.v.toInt())
-            is IntegerValue -> BooleanValue(v >=with.v)
+            is IntegerValue -> BooleanValue(v >= with.v.toDouble())
             is FloatValue -> BooleanValue(v >= with.v)
             is RationalValue -> BooleanValue(v >= with.v.toDouble())
             is StringValue -> TODO("make an error for this")

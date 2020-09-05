@@ -12,7 +12,7 @@ data class RationalValue(val v: Rational): NumericValue {
     override fun add(with: Value): Value {
         return when(with) {
             is BooleanValue -> RationalValue(v + Rational.valueOf(with.v.toLong(),1)).downsize()
-            is IntegerValue -> RationalValue(v + Rational.valueOf(with.v,1)).downsize()
+            is IntegerValue -> RationalValue(v + Rational.valueOf(with.v,LargeInteger.ONE)).downsize()
             is FloatValue -> FloatValue(v.toDouble() + with.v)
             is RationalValue -> RationalValue(v + with.v).downsize()
             is StringValue -> StringValue(toString() + with.v)
@@ -23,7 +23,7 @@ data class RationalValue(val v: Rational): NumericValue {
     override fun subtract(with: Value): Value {
         return when(with) {
             is BooleanValue -> RationalValue(v - Rational.valueOf(with.v.toLong(),1)).downsize()
-            is IntegerValue -> RationalValue(v - Rational.valueOf(with.v,1)).downsize()
+            is IntegerValue -> RationalValue(v - Rational.valueOf(with.v,LargeInteger.ONE)).downsize()
             is FloatValue -> FloatValue(v.toDouble() - with.v)
             is RationalValue -> RationalValue(v - with.v).downsize()
             else -> throw InvalidBinaryOperationError(BinaryOperation.SUBTRACT, this, with)
@@ -33,7 +33,7 @@ data class RationalValue(val v: Rational): NumericValue {
     override fun multiply(with: Value): Value {
         return when(with) {
             is BooleanValue -> RationalValue(v * with.v.toLong()).downsize()
-            is IntegerValue -> RationalValue(v * with.v).downsize()
+            is IntegerValue -> RationalValue(v * Rational.valueOf(with.v,LargeInteger.ONE)).downsize()
             is FloatValue -> FloatValue(v.toDouble() * with.v)
             is RationalValue -> RationalValue(v * with.v).downsize()
             is UnitNumericValue -> UnitNumericValue(multiply(with.n) as NumericValue, with.u)
@@ -44,7 +44,7 @@ data class RationalValue(val v: Rational): NumericValue {
     override fun divide(with: Value): Value {
         return when(with) {
             is BooleanValue -> RationalValue(v.divide(Rational.valueOf(with.v.toLong(), 1))).downsize()
-            is IntegerValue -> RationalValue(v.divide(Rational.valueOf(with.v, 1))).downsize()
+            is IntegerValue -> RationalValue(v.divide(Rational.valueOf(with.v, LargeInteger.ONE))).downsize()
             is FloatValue -> FloatValue(v.toDouble() / with.v)
             is RationalValue -> RationalValue(v.divide(with.v)).downsize()
             is UnitNumericValue -> UnitNumericValue(divide(with.n) as NumericValue, with.u.power(IntegerValue(-1)))
@@ -55,7 +55,17 @@ data class RationalValue(val v: Rational): NumericValue {
     override fun exponentiate(with: Value): Value {
         return when(with) {
             is BooleanValue -> RationalValue(v.pow(with.v.toInt())).downsize()
-            is IntegerValue -> RationalValue(v.pow(with.v.toInt())).downsize()
+            is IntegerValue -> {
+                if (with.v == LargeInteger.ZERO) {
+                    IntegerValue(LargeInteger.ONE)
+                } else if (with.v > LargeInteger.ZERO) {
+                    RationalValue(v.pow(with.v.toInt())).downsize()
+                } else {
+                    val exp = -with.v.toInt()
+                    val rat = v.inverse()
+                    RationalValue(rat.pow(exp)).downsize()
+                }
+            }
             is FloatValue -> FloatValue(v.toDouble().pow(with.v))
             is RationalValue -> FloatValue(v.toDouble().pow(with.v.toDouble()))
             else -> throw InvalidBinaryOperationError(BinaryOperation.EXPONENTIATE, this, with)
@@ -87,7 +97,7 @@ data class RationalValue(val v: Rational): NumericValue {
     override fun lessThan(with: Value): BooleanValue {
         return when(with) {
             is BooleanValue -> BooleanValue(v < Rational.valueOf(with.v.toLong(),1))
-            is IntegerValue -> BooleanValue(v < Rational.valueOf(with.v,1))
+            is IntegerValue -> BooleanValue(v < Rational.valueOf(with.v, LargeInteger.ONE))
             is FloatValue -> BooleanValue(v.toDouble() < with.v)
             is RationalValue -> BooleanValue(v < with.v)
             else -> throw InvalidBinaryOperationError(BinaryOperation.LESS_THAN, this, with)
@@ -97,7 +107,7 @@ data class RationalValue(val v: Rational): NumericValue {
     override fun greaterThan(with: Value): BooleanValue {
         return when(with) {
             is BooleanValue -> BooleanValue(v > Rational.valueOf(with.v.toLong(),1))
-            is IntegerValue -> BooleanValue(v > Rational.valueOf(with.v,1))
+            is IntegerValue -> BooleanValue(v > Rational.valueOf(with.v, LargeInteger.ONE))
             is FloatValue -> BooleanValue(v.toDouble() > with.v)
             is RationalValue -> BooleanValue(v > with.v)
             else -> throw InvalidBinaryOperationError(BinaryOperation.GREATER_THAN, this, with)
@@ -107,7 +117,7 @@ data class RationalValue(val v: Rational): NumericValue {
     override fun lessThanOrEqual(with: Value): BooleanValue {
         return when(with) {
             is BooleanValue -> BooleanValue(v <= Rational.valueOf(with.v.toLong(),1))
-            is IntegerValue -> BooleanValue(v <= Rational.valueOf(with.v,1))
+            is IntegerValue -> BooleanValue(v <= Rational.valueOf(with.v, LargeInteger.ONE))
             is FloatValue -> BooleanValue(v.toDouble() <= with.v)
             is RationalValue -> BooleanValue(v <= with.v)
             else -> throw InvalidBinaryOperationError(BinaryOperation.LESS_THAN_OR_EQUAL, this, with)
@@ -117,7 +127,7 @@ data class RationalValue(val v: Rational): NumericValue {
     override fun greaterThanOrEqual(with: Value): BooleanValue {
         return when(with) {
             is BooleanValue -> BooleanValue(v >= Rational.valueOf(with.v.toLong(),1))
-            is IntegerValue -> BooleanValue(v >= Rational.valueOf(with.v,1))
+            is IntegerValue -> BooleanValue(v >= Rational.valueOf(with.v, LargeInteger.ONE))
             is FloatValue -> BooleanValue(v.toDouble() >= with.v)
             is RationalValue -> BooleanValue(v >= with.v)
             else -> throw InvalidBinaryOperationError(BinaryOperation.GREATER_THAN_OR_EQUAL, this, with)

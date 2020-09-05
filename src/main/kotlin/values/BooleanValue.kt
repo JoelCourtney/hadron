@@ -1,5 +1,6 @@
 package values
 
+import org.jscience.mathematics.number.LargeInteger
 import org.jscience.mathematics.number.Rational
 
 data class BooleanValue(val v: Boolean): Value {
@@ -8,7 +9,7 @@ data class BooleanValue(val v: Boolean): Value {
     override fun add(with: Value): Value {
         return when(with) {
             is BooleanValue -> IntegerValue(v.toLong() + with.v.toLong())
-            is IntegerValue -> IntegerValue(v.toLong() + with.v)
+            is IntegerValue -> IntegerValue(with.v + v.toLong())
             is FloatValue -> FloatValue(v.toInt() + with.v)
             is RationalValue -> RationalValue(Rational.valueOf(v.toLong(), 1) + with.v).downsize()
             is StringValue -> StringValue(v.toString() + with.v)
@@ -19,7 +20,7 @@ data class BooleanValue(val v: Boolean): Value {
     override fun subtract(with: Value): Value {
         return when(with) {
             is BooleanValue -> IntegerValue(v.toLong() - with.v.toLong())
-            is IntegerValue -> IntegerValue(v.toLong() - with.v)
+            is IntegerValue -> IntegerValue(LargeInteger.valueOf(v.toLong()) - with.v)
             is FloatValue -> FloatValue(v.toInt() - with.v)
             is RationalValue -> RationalValue(Rational.valueOf(v.toLong(), 1) - with.v).downsize()
             is StringValue -> TODO("make an error for this")
@@ -30,7 +31,7 @@ data class BooleanValue(val v: Boolean): Value {
     override fun multiply(with: Value): Value {
         return when(with) {
             is BooleanValue -> IntegerValue(v.toLong() * with.v.toLong())
-            is IntegerValue -> IntegerValue(v.toLong() * with.v)
+            is IntegerValue -> IntegerValue(LargeInteger.valueOf(v.toLong()) * with.v)
             is FloatValue -> FloatValue(v.toInt() * with.v)
             is RationalValue -> RationalValue(Rational.valueOf(v.toLong(), 1) * with.v).downsize()
             is UnitNumericValue -> UnitNumericValue(multiply(with.n) as NumericValue, with.u)
@@ -42,7 +43,7 @@ data class BooleanValue(val v: Boolean): Value {
     override fun divide(with: Value): Value {
         return when(with) {
             is BooleanValue -> IntegerValue(v.toLong() / with.v.toLong())
-            is IntegerValue -> IntegerValue(v.toLong() / with.v)
+            is IntegerValue -> RationalValue(Rational.valueOf(v.toLong(),1).divide(Rational.valueOf(with.v, LargeInteger.ONE))).downsize()
             is FloatValue -> FloatValue(v.toInt() / with.v)
             is RationalValue -> RationalValue(Rational.valueOf(v.toLong(), 1).divide(with.v)).downsize()
             is UnitNumericValue -> UnitNumericValue(divide(with.n) as NumericValue, with.u.power(IntegerValue(-1)))
@@ -54,7 +55,7 @@ data class BooleanValue(val v: Boolean): Value {
     override fun exponentiate(with: Value): Value {
         return when(with) {
             is BooleanValue -> BooleanValue(if (with.v) v else true)
-            is IntegerValue -> BooleanValue(v.toLong().pow(with.v) != 0L)
+            is IntegerValue -> IntegerValue(v.toLong().pow(with.v.toLong()))
             is FloatValue -> BooleanValue(v.toLong().pow(with.v) != 0.0)
             is RationalValue -> BooleanValue(v.toLong().pow(with.v.toDouble()) != 0.0)
             is StringValue -> TODO("make an error for this")
@@ -65,7 +66,7 @@ data class BooleanValue(val v: Boolean): Value {
     override fun equal(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(v == with.v)
-            is IntegerValue -> BooleanValue(v.toLong() == with.v)
+            is IntegerValue -> BooleanValue(LargeInteger.valueOf(v.toLong()) == with.v)
             is FloatValue -> BooleanValue(with.v == (if(v) 1.0 else 0.0))
             is RationalValue -> BooleanValue(with.v.equals(v.toLong()))
             is StringValue -> BooleanValue(false)
@@ -76,7 +77,7 @@ data class BooleanValue(val v: Boolean): Value {
     override fun notEqual(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(v != with.v)
-            is IntegerValue -> BooleanValue(v.toLong() != with.v)
+            is IntegerValue -> BooleanValue(LargeInteger.valueOf(v.toLong()) != with.v)
             is FloatValue -> BooleanValue(with.v != (if(v) 1.0 else 0.0))
             is RationalValue -> BooleanValue(!with.v.equals(v.toLong()))
             is StringValue -> BooleanValue(true)
@@ -87,7 +88,7 @@ data class BooleanValue(val v: Boolean): Value {
     override fun lessThan(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(!v && with.v)
-            is IntegerValue -> BooleanValue(v.toInt() < with.v)
+            is IntegerValue -> BooleanValue(LargeInteger.valueOf(v.toLong()) < with.v)
             is FloatValue -> BooleanValue(v.toInt() < with.v)
             is RationalValue -> BooleanValue(Rational.valueOf(v.toLong(),1) < with.v)
             is StringValue -> TODO("make an error for this")
@@ -98,7 +99,7 @@ data class BooleanValue(val v: Boolean): Value {
     override fun greaterThan(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(v && !with.v)
-            is IntegerValue -> BooleanValue(v.toInt() > with.v)
+            is IntegerValue -> BooleanValue(LargeInteger.valueOf(v.toLong()) > with.v)
             is FloatValue -> BooleanValue(v.toInt() > with.v)
             is RationalValue -> BooleanValue(Rational.valueOf(v.toLong(),1) > with.v)
             is StringValue -> TODO("make an error for this")
@@ -109,7 +110,7 @@ data class BooleanValue(val v: Boolean): Value {
     override fun lessThanOrEqual(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(!v || with.v)
-            is IntegerValue -> BooleanValue(v.toInt() <= with.v)
+            is IntegerValue -> BooleanValue(LargeInteger.valueOf(v.toLong()) <= with.v)
             is FloatValue -> BooleanValue(v.toInt() <= with.v)
             is RationalValue -> BooleanValue(Rational.valueOf(v.toLong(),1) <= with.v)
             is StringValue -> TODO("make an error for this")
@@ -120,7 +121,7 @@ data class BooleanValue(val v: Boolean): Value {
     override fun greaterThanOrEqual(with: Value): BooleanValue {
         return when (with) {
             is BooleanValue -> BooleanValue(v || !with.v)
-            is IntegerValue -> BooleanValue(v.toInt() >= with.v)
+            is IntegerValue -> BooleanValue(LargeInteger.valueOf(v.toLong()) >= with.v)
             is FloatValue -> BooleanValue(v.toInt() >= with.v)
             is RationalValue -> BooleanValue(Rational.valueOf(v.toLong(),1) >= with.v)
             is StringValue -> TODO("make an error for this")

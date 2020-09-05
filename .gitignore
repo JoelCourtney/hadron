@@ -43,3 +43,7 @@ src/main/antlr/gen/
 doc/
 
 hadron
+
+# Vim
+*.swp
+*.swo
