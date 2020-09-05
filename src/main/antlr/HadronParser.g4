@@ -54,7 +54,8 @@ expression returns [Expression result]
     | l=expression bop=(PLUS | MINUS) r=expression { $result = new BinaryExpression($bop.getText(), $l.result, $r.result); }
     | l=expression bop=(OHAIRPIN | CHAIRPIN | OHAIRPINEQUAL | CHAIRPINEQUAL) r=expression { $result = new BinaryExpression($bop.getText(), $l.result, $r.result); }
     | l=expression bop=(EQUAL | BANG) EQUAL r=expression { $result = new BinaryExpression($bop.getText() + "=", $l.result, $r.result); }
-    | uop=MINUS expression { $result = new UnaryExpression($uop.getText(), $expression.result); }
+    | uop=MINUS e=expression { $result = new UnaryExpression($uop.getText(), $e.result); }
+    | e=expression uop=BANG { $result = new UnaryExpression($uop.getText(), $e.result); }
     | v=BOOLEAN_LITERAL { $result = new BooleanValue($v.getText()); }
     | v=STRING_LITERAL { String t = $v.getText(); $result = new StringValue(t.substring(1, t.length()-1)); }
     | n=numeric_value { $result = $n.result; }
