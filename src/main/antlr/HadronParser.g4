@@ -11,10 +11,15 @@ options { tokenVocab = HadronLexer; }
 }
 
 @parser::members {
-    public static HadronFile parseHadron(String source) {
+    private static HadronParser makeParser(String source) {
         HadronLexer lexer = new HadronLexer(CharStreams.fromString(source));
-        HadronParser parser = new HadronParser(new CommonTokenStream(lexer));
-        return parser.file().result;
+        return new HadronParser(new CommonTokenStream(lexer));
+    }
+    public static HadronFile parseHadron(String source) {
+        return makeParser(source).file().result;
+    }
+    public static Statement parseREPLStatement(String source) {
+        return makeParser(source).repl_statement().result;
     }
 }
 
@@ -24,6 +29,8 @@ file returns [HadronFile result]
     )* (
         s=statement { statements.add($s.result); }
     )? EOF { $result = new HadronFile(statements); };
+
+repl_statement returns [Statement result] : s=statement EOF { $result = $s.result; };
 
 statement returns [Statement result]
     : e=expression { $result = new ValueStatement($e.result); }

@@ -48,7 +48,7 @@ data class IntegerValue(val v: LargeInteger): NumericValue {
     override fun divide(with: Value): Value {
         return when(with) {
             is BooleanValue -> IntegerValue(v.divide(with.v.toInt()))
-            is IntegerValue -> RationalValue(Rational.valueOf(v, with.v))
+            is IntegerValue -> RationalValue(Rational.valueOf(v, with.v)).downsize()
             is FloatValue -> FloatValue(v.toDouble() / with.v)
             is RationalValue -> RationalValue(Rational.valueOf(v, LargeInteger.ONE).divide(with.v))
             is UnitNumericValue -> UnitNumericValue(divide(with.n) as NumericValue, with.u.power(IntegerValue(-1)))

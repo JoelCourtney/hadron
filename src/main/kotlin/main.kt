@@ -5,8 +5,8 @@ fun main(args: Array<String>) {
         val source = HadronParser.parseHadron(File(args[0]).readText())
         source.exec()
     } else {
-        val source = HadronParser.parseHadron(File("test.hn").readText())
-        source.exec()
+        val repl = REPLMode()
+        repl.exec()
     }
 
 //    val distance = BaseDimension("Distance")

@@ -15,8 +15,14 @@ data class StackFrame(
 ) {
     var latestValue: Value = VoidValue
         set(value) {
-            if (value != VoidValue) field = value
+            if (value != VoidValue) {
+                field = value
+                latestValueChanged = true
+            } else {
+                latestValueChanged = false
+            }
         }
+    var latestValueChanged: Boolean = false
 
     fun getVarl(name: String): Value {
         val varl = varls[name]
