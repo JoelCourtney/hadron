@@ -6,8 +6,7 @@ import values.BooleanValue
 
 data class IfStatement(val condition: Expression, val body: Expression): Statement {
     override fun exec(env: Environment) {
-        val cond = condition.eval(env)
-        when (cond) {
+        when (val cond = condition.eval(env)) {
             is BooleanValue -> {
                 if (cond.v) {
                     body.eval(env)
