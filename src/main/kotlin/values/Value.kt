@@ -18,6 +18,15 @@ import expressions.UnaryOperation
  */
 interface Value: Expression {
      /**
+      * Unwrap the data stored inside this Value.
+      *
+      * @return The object wrapped in this value, or null for [NullValue].
+      *
+      * @throws UnwrapVoidValueError
+      */
+     fun unwrap(): Any? { return null }
+
+     /**
       * Add two values.
       *
       * Called when the left operand cannot be added to.

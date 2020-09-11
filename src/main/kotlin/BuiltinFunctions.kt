@@ -58,4 +58,12 @@ object BuiltinFunctions {
             else -> TODO("make an error for this")
         }
     }
+
+//    fun format(args: List<Value>): Value {
+//        if (args.size < 2) {
+//            TODO("make an error for this")
+//        }
+//        val s = args[0].toString()
+//        val sArgs: List<> = args.subList(1,args.size).map { it.toString() }
+//    }
 }

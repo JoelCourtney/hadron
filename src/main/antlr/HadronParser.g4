@@ -86,7 +86,8 @@ expression returns [Expression result]
 
 numeric_value returns [NumericValue result]
     : { boolean neg = false; }(MINUS { neg = true; })? v=INTEGER_LITERAL { $result = new IntegerValue(((neg)?"-":"")+$v.getText()); }
-    | { boolean neg = false; }(MINUS { neg = true; })? v=(FLOAT_LITERAL | SCIENTIFIC_FLOAT_LITERAL) { $result = new FloatValue(((neg)?"-":"")+$v.getText()); };
+    | { boolean neg = false; }(MINUS { neg = true; })? v=(FLOAT_LITERAL | SCIENTIFIC_FLOAT_LITERAL) { $result = new FloatValue(((neg)?"-":"")+$v.getText()); }
+    | { boolean neg = false; }(MINUS { neg = true; })? n=INTEGER_LITERAL SLASH d=INTEGER_LITERAL { $result = new RationalValue(((neg)?"-":"")+$n.getText()+"/"+$d.getText()); };
 
 unit_expression returns [UnitExpression result]
     : l=unit_expression bop=CARROT e=numeric_value { $result = new BinaryExpression($bop.getText(), (Expression) $l.result, (Expression) $e.result); }

@@ -1,16 +1,16 @@
 import dimensions
 
 unit prefix SI = [
-    y:  0.000000000000000000000001
-    z:  0.000000000000000000001
-    a:  0.000000000000000001
-    f:  0.000000000000001
-    p:  0.000000000001
-    n:  0.000000001
-    u:  0.000001
-    m:  0.001
-    c:  0.01
-    d:  0.1
+    y:  1/1000000000000000000000000
+    z:  1/1000000000000000000000
+    a:  1/1000000000000000000
+    f:  1/1000000000000000
+    p:  1/1000000000000
+    n:  1/1000000000
+    u:  1/1000000
+    m:  1/1000
+    c:  1/100
+    d:  1/10
     da: 10
     h:  100
     k:  1000
@@ -40,8 +40,8 @@ unit W prefix SI = 1[J / s]
 unit C prefix SI = 1[A / s]
 unit V prefix SI = 1[J / C]
 unit F prefix SI = 1[C / V]
-unit ohm prefix SI = 1[V / A]
-unit S prefix SI = 1[ohm^-1]
+unit Ohm prefix SI = 1[V / A]
+unit S prefix SI = 1[Ohm^-1]
 unit Wb prefix SI = 1[V * s]
 unit T prefix SI = 1[Wb / m^2]
 unit H prefix SI = 1[Wb / A]

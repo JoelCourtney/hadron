@@ -8,6 +8,7 @@ import kotlin.math.pow
 
 data class RationalValue(val v: Rational): NumericValue {
     constructor(n: Long, d: Long): this(Rational.valueOf(n, d))
+    constructor(s: String): this(Rational.valueOf(s))
 
     override fun add(with: Value): Value {
         return when(with) {
