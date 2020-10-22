@@ -34,7 +34,9 @@ gradle dokka
 
 ## Usage
 
-There is currently no REPL mode :(. Write a hadron file (for example `example.hn`), and run it with:
+### Running a file
+
+Write a hadron file (for example `example.hn`), and run it with:
 
 ```bash
 hadron example.hn
@@ -47,6 +49,21 @@ You can also make a hadron executable file with a typical shabang:
 
 println("Hello World!")
 ```
+
+### REPL Mode
+
+Just run `hadron` and type line-by-line:
+
+```bash
+$ hadron
+Hadron v0.1-alpha REPL mode.
+There is no help feature.
+> "Hello World!"
+Hello World!
+> 
+```
+
+It currently does not support moving the cursor or using the up/down arrow keys to select previous lines.
 
 ## Syntax
 
