@@ -1,1 +1,22 @@
+import units
+
 val pi = 3.141592653589793238462643383279
+val e = 2.71828182845904523536028747135266249775724709369995
+
+// val i = 1i (UNCOMMENT WHEN WE HAVE IMAGINARY NUMBERS)
+
+val c = 299792458[m/s]
+val h = 6.62607015e-34[J*s]
+val hbar = h / 2 / pi
+val G = 6.6743015e-33[m^3/kg/s^2]
+val eps_0 = 8.854187812813e-12[F/m]
+val mu_0 = 1.2566370621219e-6[N/A^2]
+val Z_0 = mu_0 * c
+val q_e = 1.602176634e-19[C]
+val deltaNu_Cs = 9192631770[Hz]
+val N_A = 6.02214076e23[mol^-1]
+val k_B = 1.380649e-23[J/K]
+val alpha = q_e^2 / (4 * pi * eps_0 * hbar * c)
+val m_e = 9.109383701528e-31[kg]
+val m_p = 1.6726219236951e-27[kg]
+val m_n = 1.6749274980495e-27[kg]
