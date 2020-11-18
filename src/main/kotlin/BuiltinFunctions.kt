@@ -3,10 +3,11 @@ import values.*
 
 object BuiltinFunctions {
     val map = mapOf(
-        "println" to ::println,
-        "print" to ::print,
-        "sqrt" to ::sqrt,
-        "asin" to ::asin
+            "println" to ::println,
+            "print" to ::print,
+            "sqrt" to ::sqrt,
+            "asin" to ::asin,
+            "ln" to ::ln,
     )
     fun lookup(s: String): BuiltinFunction? {
         val f = map[s]
@@ -55,6 +56,20 @@ object BuiltinFunctions {
             is FloatValue -> FloatValue(kotlin.math.sqrt(arg.v))
             is RationalValue -> FloatValue(kotlin.math.sqrt(arg.v.toDouble()))
             is UnitNumericValue -> UnitNumericValue(sqrt(listOf(arg.n)) as NumericValue, arg.u.power(RationalValue(1,2)))
+            else -> TODO("make an error for this")
+        }
+    }
+
+    fun ln(args: List<Value>): Value {
+        if (args.size != 1) {
+            TODO("make an error for this")
+        }
+        val arg = args[0]
+        return when(arg) {
+            is BooleanValue -> FloatValue(kotlin.math.ln(arg.v.toLong().toDouble()))
+            is IntegerValue -> FloatValue(kotlin.math.ln(arg.v.toDouble()))
+            is FloatValue -> FloatValue(kotlin.math.ln(arg.v))
+            is RationalValue -> FloatValue(kotlin.math.ln(arg.v.toDouble()))
             else -> TODO("make an error for this")
         }
     }
