@@ -44,6 +44,7 @@ statement returns [Statement result]
         i=IDENTIFIER { args.add($i.getText()); }
     )? CPAREN expression { $result = new DeclareFunctionStatement($id.getText(), args, $expression.result); }
     | IF cond=expression sep e=expression { $result = new IfStatement($cond.result, $e.result); }
+    | IF cond=expression sep e1=expression sep? ELSE sep? e2=expression { $result = new IfElseStatement($cond.result, $e1.result, $e2.result); }
     | UNIT DIM i=IDENTIFIER { $result = new DeclareBaseDimensionStatement($i.getText()); }
     | UNIT DIM i=IDENTIFIER EQUAL OBRAKET OBRAKET u=unit_expression CBRAKET CBRAKET { $result = new DeclareDerivedDimensionStatement($i.getText(), $u.result); }
     | UNIT i=IDENTIFIER { String prefix = null; } (PREFIX p=IDENTIFIER { prefix = $p.getText(); })? EQUAL
