@@ -8,7 +8,9 @@ object BuiltinFunctions {
             "sqrt" to ::sqrt,
             "asin" to ::asin,
             "ln" to ::ln,
+            "log" to ::ln,
     )
+    
     fun lookup(s: String): BuiltinFunction? {
         val f = map[s]
         return if (f != null) {
