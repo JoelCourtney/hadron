@@ -35,6 +35,7 @@ src/main/gen/
 src/main/antlr/gen/
 *.interp
 *.tokens
+gen/
 
 # Mac
 .DS_Store
