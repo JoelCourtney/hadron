@@ -1,8 +1,13 @@
-import org.jscience.mathematics.number.Rational
+import BuiltinFunctions.map
 import values.*
 
+/**
+ * Contains and maps to the builtin functions written in Kotlin.
+ *
+ * @property map An immutable map of [String] function names to builtin functions.
+ */
 object BuiltinFunctions {
-    val map = mapOf(
+    private val map = mapOf(
             "println" to ::println,
             "print" to ::print,
             "sqrt" to ::sqrt,
@@ -10,31 +15,52 @@ object BuiltinFunctions {
             "ln" to ::ln,
             "log" to ::ln,
     )
-    
-    fun lookup(s: String): BuiltinFunction? {
-        val f = map[s]
-        return if (f != null) {
-            BuiltinFunction(f)
-        } else {
-            null
-        }
+
+    /**
+     * Maps a [String] to a builtin function.
+     *
+     * Returns null if the function name is not found.
+     *
+     * @param s The [String] function name.
+     * @return A function of signature ([List]<[Value]>)->[Value], or null if the function name is not found.
+     */
+    fun lookup(s: String): ((List<Value>)->Value)? {
+        return map[s]
     }
 
-    fun println(args: List<Value>): Value {
+    /**
+     * Prints the argument to stdout with a trailing newline.
+     *
+     * @param args A [List] containing exactly one [Value].
+     * @return [VoidValue]
+     */
+    private fun println(args: List<Value>): Value {
         for (arg in args) {
             println(arg.toString())
         }
         return VoidValue
     }
 
-    fun print(args: List<Value>): Value {
+    /**
+     * Prints the argument to stdout.
+     *
+     * @param args A [List] containing exactly one [Value].
+     * @return [VoidValue]
+     */
+    private fun print(args: List<Value>): Value {
         for (arg in args) {
             print(arg)
         }
         return VoidValue
     }
 
-    fun asin(args: List<Value>): Value {
+    /**
+     * Returns the arc sine of the argument.
+     *
+     * @param args A [List] containing exactly one [NumericValue] or [BooleanValue].
+     * @return A [FloatValue] polymorphised as [Value], in radians.
+     */
+    private fun asin(args: List<Value>): Value {
         if (args.size != 1) {
             TODO("make an error for this")
         }
@@ -47,12 +73,17 @@ object BuiltinFunctions {
         }
     }
 
-    fun sqrt(args: List<Value>): Value {
+    /**
+     * Returns the square root of the argument.
+     *
+     * @param args A [List] containing exactly one [BooleanValue], [NumericValue], or [UnitNumericValue].
+     * @return A [BooleanValue], [NumericValue], or [UnitNumericValue], polymorphised as [Value].
+     */
+    private fun sqrt(args: List<Value>): Value {
         if (args.size != 1) {
             TODO("make an error for this")
         }
-        val arg = args[0]
-        return when(arg) {
+        return when(val arg = args[0]) {
             is BooleanValue -> arg
             is IntegerValue -> FloatValue(kotlin.math.sqrt(arg.v.toDouble()))
             is FloatValue -> FloatValue(kotlin.math.sqrt(arg.v))
@@ -62,12 +93,17 @@ object BuiltinFunctions {
         }
     }
 
-    fun ln(args: List<Value>): Value {
+    /**
+     * Returns the natural logarithm of the argument.
+     *
+     * @param args A [List] containing exactly one [BooleanValue] or [NumericValue].
+     * @return A [FloatValue] polymorphised as [Value].
+     */
+    private fun ln(args: List<Value>): Value {
         if (args.size != 1) {
             TODO("make an error for this")
         }
-        val arg = args[0]
-        return when(arg) {
+        return when(val arg = args[0]) {
             is BooleanValue -> FloatValue(kotlin.math.ln(arg.v.toLong().toDouble()))
             is IntegerValue -> FloatValue(kotlin.math.ln(arg.v.toDouble()))
             is FloatValue -> FloatValue(kotlin.math.ln(arg.v))
