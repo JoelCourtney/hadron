@@ -5,6 +5,13 @@ import units.Unit
 import units.Dimension
 import units.UnitPrefix
 
+/**
+ * The environment that Hadron statements refer to and execute in.
+ *
+ * Delegates most operations except for [push] and [pop] to the top [StackFrame] in the stack.
+ *
+ * @property stack The list of stack frames in the current execution state of the Hadron script.
+ */
 data class Environment(val stack: MutableList<StackFrame> = mutableListOf()) {
     fun getVarl(name: String): Value {
         return stack.last().getVarl(name)

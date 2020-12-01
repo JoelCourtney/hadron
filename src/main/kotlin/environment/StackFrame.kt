@@ -6,6 +6,19 @@ import values.Value
 import values.VoidValue
 import units.Unit
 
+/**
+ * A single frame on the stack, containing declared varls, units, etc.
+ *
+ * @property deferTo A pointer to another frame lower on the stack. If a name is searched for in this frame, the search is deferred to this pointer. deferTo is usually the next frame in the stack, but in the case of function calls, that is not necessarily the case.
+ *
+ * @property varls The [Varl]s (constant values and variables) declared in this stack frame.
+ *
+ * @property units The [Unit]s declared in this stack frame.
+ *
+ * @property unitPrefixes The [UnitPrefix]s declared in this stack frame.
+ *
+ * @property dimensions The [Dimension]s declared in this stack frame.
+ */
 data class StackFrame(
     val deferTo: StackFrame?,
     val varls: MutableMap<String, Varl> = mutableMapOf(),
@@ -26,7 +39,7 @@ data class StackFrame(
 
     fun getVarl(name: String): Value {
         val varl = varls[name]
-        return varl?.v
+        return varl?.value
             ?: try {
                 deferTo!!.getVarl(name)
             } catch (e: NullPointerException) {
@@ -84,7 +97,7 @@ data class StackFrame(
         val varl = varls[name]
         if (varl != null) {
             if (varl.mutable) {
-                varl.v = v
+                varl.value = v
             } else {
                 TODO("make an error for this")
             }

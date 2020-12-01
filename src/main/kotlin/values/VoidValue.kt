@@ -1,7 +1,5 @@
 package values
 
-import errors.UnwrapVoidValueError
-
 /**
  * A void return type.
  *
