@@ -71,6 +71,7 @@ unit sec_angle = 0.016666666666666666[min_angle]
 unit ha = 1[hm^2]
 
 unit L prefix SI = 1[dm^3]
+unit M = 1[mol / L]
 
 unit t = 1[Mg]
 

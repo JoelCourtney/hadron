@@ -11,6 +11,8 @@ unit dim Length = [[Distance]]
 unit dim Area = [[Distance^2]]
 unit dim Volume = [[Distance^3]]
 
+unit dim Concentration = [[Amount / Volume]]
+
 unit dim Mass
 
 unit dim Speed = [[Distance / Time]]
