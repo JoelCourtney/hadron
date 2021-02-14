@@ -45,7 +45,7 @@ data class FloatValue(val v: Double): NumericValue {
             is IntegerValue -> FloatValue(v / with.v.toDouble())
             is FloatValue -> FloatValue(v / with.v)
             is RationalValue -> FloatValue(v / with.v.toDouble())
-            is UnitNumericValue -> UnitNumericValue(multiply(with.n) as NumericValue, with.u.power(IntegerValue(-1)))
+            is UnitNumericValue -> UnitNumericValue(divide(with.n) as NumericValue, with.u.power(IntegerValue(-1)))
             is StringValue -> TODO("make an error for this")
             else -> TODO("make an error for this")
         }
