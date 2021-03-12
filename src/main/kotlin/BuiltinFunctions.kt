@@ -14,6 +14,7 @@ object BuiltinFunctions {
             "asin" to ::asin,
             "ln" to ::ln,
             "log" to ::ln,
+            "exp" to ::exp,
     )
 
     /**
@@ -108,6 +109,25 @@ object BuiltinFunctions {
             is IntegerValue -> FloatValue(kotlin.math.ln(arg.v.toDouble()))
             is FloatValue -> FloatValue(kotlin.math.ln(arg.v))
             is RationalValue -> FloatValue(kotlin.math.ln(arg.v.toDouble()))
+            else -> TODO("make an error for this")
+        }
+    }
+
+    /**
+     * Returns E to the power of the argument.
+     *
+     * @param args A [List] containing exactly one [BooleanValue] or [NumericValue]
+     * @return A [FloatValue] polymorphised as [Value]
+     */
+    private fun exp(args: List<Value>): Value {
+        if (args.size != 1) {
+            TODO("make an error for this")
+        }
+        return when(val arg = args[0]) {
+            is BooleanValue -> FloatValue(kotlin.math.exp(arg.v.toLong().toDouble()))
+            is IntegerValue -> FloatValue(kotlin.math.exp(arg.v.toDouble()))
+            is FloatValue -> FloatValue(kotlin.math.exp(arg.v))
+            is RationalValue -> FloatValue(kotlin.math.exp(arg.v.toDouble()))
             else -> TODO("make an error for this")
         }
     }
