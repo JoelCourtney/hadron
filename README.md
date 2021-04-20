@@ -1,4 +1,4 @@
-# hadron
+# Hadron
 
 A small (and slow) language for physics calculations.
 
@@ -67,4 +67,4 @@ It currently does not support moving the cursor or using the up/down arrow keys 
 
 ## Syntax
 
-I really don't want to do that right now.
+See [this page](https://www.joelcourtney.net/hadron). Most of the features are not implemented yet; I'm adding them as I need them.
